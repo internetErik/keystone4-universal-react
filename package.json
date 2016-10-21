@@ -1,0 +1,43 @@
+{
+  "name": "keystone-beta",
+  "version": "0.0.1",
+  "description": "Boilerplate for keystone 4 with universal react",
+  "private": true,
+  "babel": {
+    "plugins": [
+      "transform-flow-comments"
+    ]
+  },
+  "scripts": {
+    "mongod": "mongod --dbpath mongo_data/db",
+    "start": "node server/index.js",
+    "webpack": "webpack -w",
+    "babel": "babel-node server/index.js --presets react,es2015,stage-2",
+    "nodemon": "nodemon server/index.js --exec babel-node --presets react,es2015,stage-2"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-react": "^6.16.0",
+    "babel-register": "^6.16.3",
+    "html-loader": "^0.4.4",
+    "keystone": "^4.0.0-beta.3",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
+    "redux": "^3.6.0",
+    "underscore": "^1.8.3",
+    "whatwg-fetch": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
+    "flow-babel-webpack-plugin": "^1.0.1",
+    "nodemon": "^1.11.0",
+    "webpack": "^1.13.2"
+  }
+}
