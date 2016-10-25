@@ -5,12 +5,14 @@ import {
 } from 'react-router';
 
 import App from './app';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
+import HomePage from './pages/HomePage/index';
+import AboutPage from './pages/AboutPage/index';
+import CounterPage from './pages/CounterPage/index';
 
 export default (
   <Route path='/' component={App}>
     <IndexRoute component={HomePage} />
     <Route path='/about' component={AboutPage} />
+    <Route path='/counter' component={CounterPage} />
   </Route>
 );

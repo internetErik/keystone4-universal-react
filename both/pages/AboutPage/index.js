@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import fetch from 'isomorphic-fetch';
 
 class AboutPage extends React.Component {
@@ -20,6 +21,8 @@ class AboutPage extends React.Component {
     return (
       <section>
         <h1>About Page!</h1>
+        <Link to={'/'}>Home</Link>
+        <Link to={'/counter'}>Counter</Link>
         <div>
           {this.state.text}
         </div>
