@@ -1,4 +1,4 @@
-import keystone from 'keystone',
+import keystone from 'keystone';
 const User = keystone.list('User');
 
 export default function(done) {
