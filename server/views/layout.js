@@ -8,7 +8,7 @@ export default function renderLayout(app, props) {
 </head>
 <body>
   <div id="app">${app}</div>
-  <script>window.PROPS = ${props}</script>
+  <script>window.PROPS = ${JSON.stringify(props)}</script>
   <script src="bundle.js"></script>
 </body>
 </html>

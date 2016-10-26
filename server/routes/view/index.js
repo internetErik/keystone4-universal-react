@@ -23,10 +23,8 @@ exports = module.exports = (request, response) => {
             <RouterContext {...renderProps} />
           </Provider>
         );
-        const props = JSON.stringify({
-          title: 'Universal React',
-        });
-        response.send(renderLayout(html, props));
+        const initialState = store.getState();
+        response.send(renderLayout(html, initialState));
       }
       else
         response.status(404).send('Not Found');
