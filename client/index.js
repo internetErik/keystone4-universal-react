@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router'
 import routes from '../both/routes';
-import reducers from './reducers';
+import reducers from '../both/reducers';
 
 const store = createStore(reducers);
 

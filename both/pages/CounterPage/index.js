@@ -9,6 +9,8 @@ import {
 
 class CounterPage extends React.Component {
 
+  fetchData() {}
+
   render() {
     return (
       <section>
