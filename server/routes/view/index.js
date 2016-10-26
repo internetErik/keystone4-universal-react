@@ -7,6 +7,11 @@ import { match, RouterContext } from 'react-router'
 import routes from '../../../both/routes';
 import renderLayout from '../../views/layout.js';
 import reducers from '../../../both/reducers';
+import {
+  ReduxAsyncConnect,
+  loadOnServer,
+  reducer as reduxAsyncConnect,
+} from 'redux-connect';
 
 exports = module.exports = (request, response) => {
   match(
@@ -16,15 +21,18 @@ exports = module.exports = (request, response) => {
         response.status(500).send(err.message);
       else if (redirectLocation)
         response.redirect(redirect.pathname + redirect.search);
-      else if(renderProps) {
+      else if (renderProps) {
         const store = createStore(reducers);
-        const html = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>
-        );
-        const initialState = store.getState();
-        response.send(renderLayout(html, initialState));
+        loadOnServer({...renderProps, store}).then(() => {
+          const html = renderToString(
+            <Provider store={store}>
+              <ReduxAsyncConnect {...renderProps} />
+            </Provider>
+          );
+          console.log(renderProps.components);
+          const initialState = store.getState();
+          response.send(renderLayout(html, initialState));
+        });
       }
       else
         response.status(404).send('Not Found');

@@ -5,11 +5,21 @@
   "private": true,
   "scripts": {
     "mongod": "mongod --dbpath mongo_data/db",
-    "start": "babel-node server/index.js --presets react,es2015,stage-2",
+    "start": "babel-node server/index.js",
     "webpack": "webpack -w",
-    "nodemon": "nodemon server/index.js --exec babel-node --presets react,es2015,stage-2"
+    "nodemon": "nodemon server/index.js --exec babel-node"
   },
   "author": "",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2",
+      "react"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ]
+  },
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.17.0",
@@ -23,12 +33,14 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
+    "redux-connect": "^4.0.2",
     "reselect": "^2.5.4",
     "underscore": "^1.8.3",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-stage-2": "^6.17.0",
     "nodemon": "^1.11.0",
