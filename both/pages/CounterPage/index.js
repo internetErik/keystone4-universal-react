@@ -10,7 +10,7 @@ import {
 
 @asyncConnect([{
   key: 'currentCount',
-  promise: ({store: {params, helpers}}) => {
+  promise: ({params, helpers}) => {
     console.log("params: ", params);
     const currentCount = params.count || 0;
     return Promise.resolve(currentCount);
