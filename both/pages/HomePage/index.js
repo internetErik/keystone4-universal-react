@@ -16,8 +16,6 @@ export default class HomePage extends React.Component {
       <section>
         <h1>{this.props.title}</h1>
         <button onClick={this.clickHandler}>Click Me!</button>
-        <Link to={'/about'}>About</Link>
-        <Link to={'/counter'}>Counter</Link>
       </section>
     );
   }

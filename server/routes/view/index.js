@@ -29,7 +29,6 @@ exports = module.exports = (request, response) => {
               <ReduxAsyncConnect {...renderProps} />
             </Provider>
           );
-          console.dir(renderProps);
           const initialState = store.getState();
           response.send(renderLayout(html, initialState));
         });

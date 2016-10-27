@@ -2,7 +2,9 @@ import React from 'react';
 
 const App = (props) =>(
   <section>
-    This is the App.js!
+    <Link to={'/'}>Home</Link>
+    <Link to={'/about'}>About</Link>
+    <Link to={'/counter'}>Counter</Link>
     {props.children}
   </section>
 );

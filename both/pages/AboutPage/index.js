@@ -11,22 +11,20 @@ import {
   key: 'message',
   promise: ({params, helpers, store}) => getMessage(store.dispatcher, getMessageSuccess, getMessageFailure),
 }])
-class AboutPage extends React.Component {
+export default class AboutPage extends React.Component {
+
+  static propTypes = {
+    message: React.PropTypes.string.isRequired,
+  };
 
   render() {
     return (
       <section>
         <h1>About Page!</h1>
-        <Link to={'/'}>Home</Link>
-        <Link to={'/counter'}>Counter</Link>
         <div>
-          loading
+          {this.props.message}
         </div>
       </section>
     );
   }
 }
-
-export { AboutPage };
-
-export default AboutPage;
