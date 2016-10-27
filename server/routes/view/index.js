@@ -5,12 +5,11 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import routes from '../../../both/routes';
-import renderLayout from '../../views/layout.js';
+import renderLayout from '../../views/layout';
 import reducers from '../../../both/reducers';
 import {
   ReduxAsyncConnect,
   loadOnServer,
-  reducer as reduxAsyncConnect,
 } from 'redux-connect';
 
 exports = module.exports = (request, response) => {

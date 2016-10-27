@@ -1,14 +1,13 @@
 import { createSelector } from 'reselect';
-import { createSelector } from 'reselect';
 
-const aboutPageDomain = () => (state) => state.aboutReducer;
+const selectAboutPageDomain = () => (state) => state.aboutReducer;
 
 const aboutPage = () => createSelector(
-  selectCounterPageDomain(),
+  selectAboutPageDomain(),
   (substate) => substate
 );
 
 export default aboutPage;
 export {
-  aboutPageDomain,
+  selectAboutPageDomain,
 };
