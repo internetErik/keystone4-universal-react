@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import selectCounterPage from './selector';
-import { asyncConnect } from 'redux-connect'
+import { asyncConnect } from 'redux-connect';
 import {
   increaseCounter,
   decreaseCounter,

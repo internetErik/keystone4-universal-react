@@ -1,21 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
-import fetch from 'isomorphic-fetch';
+import { asyncConnect } from 'redux-connect';
+import { getMessage } from './api';
+import {
+  getMessageSuccess,
+  getMessageFailure,
+} from './actions';
 
+@asyncConnect([{
+  key: 'message',
+  promise: ({params, helpers, store}) => getMessage(store.dispatcher, getMessageSuccess, getMessageFailure),
+}])
 class AboutPage extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      text: 'Loading',
-    };
-  }
-
-  componentDidMount() {
-    fetch('/api/post')
-      .then(r => r.json())
-      .then(r => this.setState({ text: r.response }));
-  }
 
   render() {
     return (
@@ -24,11 +20,13 @@ class AboutPage extends React.Component {
         <Link to={'/'}>Home</Link>
         <Link to={'/counter'}>Counter</Link>
         <div>
-          {this.state.text}
+          loading
         </div>
       </section>
     );
   }
 }
+
+export { AboutPage };
 
 export default AboutPage;
