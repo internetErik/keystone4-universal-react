@@ -1,9 +1,17 @@
 import keystone from 'keystone';
 import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import routes from '../../../both/routes';
 import renderLayout from '../../views/layout.js';
+import reducers from '../../../both/reducers';
+import {
+  ReduxAsyncConnect,
+  loadOnServer,
+  reducer as reduxAsyncConnect,
+} from 'redux-connect';
 
 exports = module.exports = (request, response) => {
   match(
@@ -13,12 +21,18 @@ exports = module.exports = (request, response) => {
         response.status(500).send(err.message);
       else if (redirectLocation)
         response.redirect(redirect.pathname + redirect.search);
-      else if(renderProps) {
-        const html = renderToString(<RouterContext {...renderProps} />);
-        const props = JSON.stringify({
-          title: 'Universal React',
+      else if (renderProps) {
+        const store = createStore(reducers);
+        loadOnServer({...renderProps, store}).then(() => {
+          const html = renderToString(
+            <Provider store={store}>
+              <ReduxAsyncConnect {...renderProps} />
+            </Provider>
+          );
+          console.log(renderProps.components);
+          const initialState = store.getState();
+          response.send(renderLayout(html, initialState));
         });
-        response.send(renderLayout(html, props));
       }
       else
         response.status(404).send('Not Found');

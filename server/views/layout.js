@@ -1,4 +1,4 @@
-export default function renderLayout(app, props) {
+export default function renderLayout(app, initialState) {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,8 @@ export default function renderLayout(app, props) {
 </head>
 <body>
   <div id="app">${app}</div>
-  <script>window.PROPS = ${props}</script>
-  <script src="bundle.js"></script>
+  <script>window.__INITIAL_STATE = ${JSON.stringify(initialState)}</script>
+  <script src="/bundle.js"></script>
 </body>
 </html>
   `;

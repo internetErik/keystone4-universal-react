@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Route,
   IndexRoute,
+  Redirect,
 } from 'react-router';
 
 import App from './app';
@@ -13,6 +14,8 @@ export default (
   <Route path='/' component={App}>
     <IndexRoute component={HomePage} />
     <Route path='/about' component={AboutPage} />
-    <Route path='/counter' component={CounterPage} />
+    <Route path="/counter" component={CounterPage}>
+      <Route path='/counter/:count' />
+    </Route>
   </Route>
 );

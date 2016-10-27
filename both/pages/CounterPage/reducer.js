@@ -1,6 +1,6 @@
 
 const initialState = {
-  currentCount: 0
+  currentCount: 10
 };
 
 export default function reducer(state = initialState, action) {
