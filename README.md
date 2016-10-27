@@ -1,6 +1,6 @@
 # Keystone 4 (beta) With Universal React
 
-** This project is a work in progres, and the goal of it is to learn how these technologies are setup **
+*This project is a work in progres, and the goal of it is to learn how these technologies are setup*
 
 ## Goal
 
