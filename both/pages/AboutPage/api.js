@@ -1,10 +1,10 @@
 import fetch from 'isomorphic-fetch';
+import { isServer } from '../../util/environmentDetection';
 
-export function getMessage(dispatcher, success, failure) {
-  if(true)
-    return fetch('/api/post')
-      .then(r => r.json())
-      .then(r => dispatcher(success(r.response)));
-  else
-    return dispatcher(success('hello world')); //potentially delivered out of cache
+export function getMessage() {
+  console.log(isServer);
+  return (isServer) 
+  ? Promise.resolve({response: 'hello world'})
+  : fetch('/api/post')
+    .then(r => r.json());
 }

@@ -11,8 +11,9 @@ import {
 const mapStateToProps = selectAboutPage();
 
 @asyncConnect([{
-  promise: ({params, helpers, store}) => {
-    return getMessage(store.dispatcher, getMessageSuccess, getMessageFailure)
+  promise: ({ params, helpers, store: { dispatch } }) => {
+    return getMessage()
+      .then(r => dispatch(getMessageSuccess(r.response)));
   },
 }], mapStateToProps)
 export default class AboutPage extends React.Component {
