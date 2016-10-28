@@ -1,3 +1,4 @@
+'use strict';
 import {
   GET_MESSAGE_SUCCESS,
   GET_MESSAGE_FAILURE,

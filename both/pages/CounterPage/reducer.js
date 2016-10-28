@@ -1,3 +1,4 @@
+'use strict';
 import {
   INCREASE_COUNTER,
   DECREASE_COUNTER,

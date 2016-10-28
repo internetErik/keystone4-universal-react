@@ -1,3 +1,4 @@
+'use strict';
 export default function renderLayout(app, initialState) {
   return `
 <!DOCTYPE html>

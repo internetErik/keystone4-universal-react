@@ -1,3 +1,4 @@
+'use strict';
 import keystone from 'keystone';
 const User = keystone.list('User');
 

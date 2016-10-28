@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import { asyncConnect } from 'redux-connect';
 import { getMessage } from './api';

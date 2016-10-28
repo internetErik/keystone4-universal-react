@@ -1,3 +1,4 @@
+'use strict';
 import _ from 'underscore';
 import keystone from 'keystone';
 

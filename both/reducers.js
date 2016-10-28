@@ -1,3 +1,4 @@
+'use strict';
 import { combineReducers } from 'redux';
 import { reducer as reduxAsyncConnect } from 'redux-connect';
 import aboutReducer from './pages/AboutPage/reducer';

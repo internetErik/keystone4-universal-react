@@ -1,3 +1,4 @@
+'use strict';
 import keystone from 'keystone';
 
 exports = module.exports = function (req, res) {

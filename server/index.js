@@ -1,3 +1,4 @@
+'use strict';
 import keystone from 'keystone';
 import routes from './routes';
 
