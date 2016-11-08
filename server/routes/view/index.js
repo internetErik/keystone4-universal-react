@@ -28,7 +28,7 @@ exports = module.exports = (request, response) => {
         // load data out of keystone's interface to mongo
         populateData(request.url).then((data) => {
           // wait for all components to finish async requests
-          loadOnServer({...renderProps, store}).then(() => {
+          loadOnServer({...renderProps, store, data}).then(() => {
             // generate a string that we will render to the page
             const html = renderToString(
               <Provider store={store}>

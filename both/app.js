@@ -7,6 +7,7 @@ const App = (props) =>(
     <Link to={'/'}>Home</Link>
     <Link to={'/about'}>About</Link>
     <Link to={'/counter'}>Counter</Link>
+    <Link to={'/blog'}>Blog</Link>
     {props.children}
   </section>
 );

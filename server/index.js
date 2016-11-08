@@ -6,7 +6,7 @@ keystone.init({
   'name': 'Keystone Beta',
   'brand': 'FCB Chicago',
 
-  'static': 'public',
+  'static': '../public',
 
   'auto update': true,
   'mongo': 'mongodb://localhost/keystone-beta',
@@ -20,5 +20,10 @@ keystone.init({
 keystone.import('./models');
 
 keystone.set('routes', routes);
+
+keystone.set('nav', {
+  'posts': ['posts', 'post-categories'],
+  'users': 'users',
+});
 
 keystone.start();

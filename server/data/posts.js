@@ -3,8 +3,7 @@ import keystone from 'keystone';
 
 export function getPost(postid, /* ref */data) {
   return new Promise((resolve, reject) => {
-    const q = keystone.list('Post')
-      .model.findOne({
+    keystone.list('Post').model.findOne({
         state: 'published',
         slug: postid,
       })
@@ -18,17 +17,15 @@ export function getPost(postid, /* ref */data) {
 
 export function getPosts(/* ref */data) {
   return new Promise((resolve, reject) => {
-    const q = keystone.list('Post')
-    .model
-    .find()
-    .where('state', 'published')
-    .sort('-publishedDate')
-    .populate('author')
-    .limit('4');
-
-    q.exec(function (err, results) {
-      data.posts = results;
-      resolve();
-    });
+    keystone.list('Post')
+      .model
+      .find()
+      .where('state', 'published')
+      .sort('-publishedDate')
+      .populate('author categories')
+      .exec(function (err, results) {
+        data.posts = results || [];
+        resolve();
+      });
   });
 }

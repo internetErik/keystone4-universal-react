@@ -34,7 +34,7 @@ const routes = {
 
 // Bind Routes
 const controllers = (app) => {
-  app.all('/api/post', routes.api.post);
+  app.all('/api/blog/:postid?', routes.api.blog);
   app.get('*', routes.view.index);
 };
 

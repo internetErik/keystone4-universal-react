@@ -19,7 +19,7 @@ export default function populateData(url) {
   let [arg1, arg2, arg3, arg4] = url.split('/').splice(1);
   return new Promise((resolve, reject) => {
     const promises = [];
-    if(arg1 === 'post') {
+    if(arg1 === 'blog') {
       promises.push(getPosts(data));
       if(arg2)
         promises.push(getPost(arg2, data));
