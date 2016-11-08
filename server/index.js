@@ -10,7 +10,7 @@ keystone.init({
 
   'auto update': true,
   'mongo': 'mongodb://localhost/keystone-beta',
-
+  'cloudinary config':  { cloud_name: 'my-cloud', api_key: 'abc', api_secret: '123' },
   'session': true,
   'auth': true,
   'user model': 'User',
@@ -18,6 +18,10 @@ keystone.init({
 });
 
 keystone.import('./models');
+
+keystone.set('locals', {
+  env: keystone.get('env'),
+});
 
 keystone.set('routes', routes);
 
