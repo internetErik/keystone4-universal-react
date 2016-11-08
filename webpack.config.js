@@ -1,10 +1,9 @@
-module.exports = {
+ var config = {
   entry: './client/index.js',
   output: {
     filename: 'bundle.js',
-    path: './server/public'
+    path: './public'
   },
-  devtool: 'source-map',
   module: {
     loaders: [
       {
@@ -20,6 +19,15 @@ module.exports = {
         test: /\.html$/,
         loader: 'html-loader',
       },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"],
+      },
     ]
   }
 };
+
+// depending on the environment, we should toggle this on or off
+config.devtool = 'source-map';
+
+module.exports = config;

@@ -6,8 +6,6 @@ keystone.init({
   'name': 'Keystone Beta',
   'brand': 'FCB Chicago',
 
-  // 'favicon': 'public/favicon.ico',
-  // 'sass': 'server/public',
   'static': 'public',
 
   'auto update': true,

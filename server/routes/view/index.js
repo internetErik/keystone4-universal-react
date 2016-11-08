@@ -1,5 +1,4 @@
 'use strict';
-import keystone from 'keystone';
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -12,6 +11,7 @@ import {
   ReduxAsyncConnect,
   loadOnServer,
 } from 'redux-connect';
+import populateData from '../../data';
 
 exports = module.exports = (request, response) => {
   // match against front-end route
@@ -25,16 +25,19 @@ exports = module.exports = (request, response) => {
       else if (renderProps) {
         // initialize a store for rendering app
         const store = createStore(reducers);
-        // wait for all components to finish async requests
-        loadOnServer({...renderProps, store}).then(() => {
-          // generate a string that we will render to the page
-          const html = renderToString(
-            <Provider store={store}>
-              <ReduxAsyncConnect {...renderProps} />
-            </Provider>
-          );
-          // render the page, and send it to the client
-          response.send(renderLayout(html, store.getState()));
+        // load data out of keystone's interface to mongo
+        populateData(request.url).then((data) => {
+          // wait for all components to finish async requests
+          loadOnServer({...renderProps, store}).then(() => {
+            // generate a string that we will render to the page
+            const html = renderToString(
+              <Provider store={store}>
+                <ReduxAsyncConnect {...renderProps} />
+              </Provider>
+            );
+            // render the page, and send it to the client
+            response.send(renderLayout(html, store.getState()));
+          });
         });
       }
       else

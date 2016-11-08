@@ -4,8 +4,14 @@
   "description": "Boilerplate for keystone 4 with universal react",
   "private": true,
   "scripts": {
+    "clean": "rm -rf build && mkdir build",
+    "build-both": "babel -d ./build/both ./both -s",
+    "build-server": "babel -d ./build/server ./server -s && cp ./env.json ./build/env.json",
+    "build-client": "webpack && cp -a ./public ./build/public",
+    "build": "npm run clean && npm run build-client && npm run build-both && npm run build-server",
+    "start": "node ./build/server/index.js",
     "mongod": "mongod --dbpath mongo_data/db",
-    "start": "babel-node server/index.js",
+    "dev-start": "babel-node server/index.js",
     "webpack": "webpack -w",
     "nodemon": "nodemon server/index.js --exec babel-node"
   },
@@ -43,6 +49,11 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-stage-2": "^6.17.0",
+    "css-loader": "^0.25.0",
+    "node-sass": "^3.11.2",
+    "nodemon": "^1.11.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
     "nodemon": "^1.11.0",
     "webpack": "^1.13.2"
   }

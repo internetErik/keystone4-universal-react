@@ -11,8 +11,8 @@ pids
 mongo_data
 
 # Ignoring webpack bundles
-server/public/bundle.js
-server/public/bundle.js.map
+public/bundle.js
+public/bundle.js.map
 
 # Coverage directory used by tools like istanbul
 coverage
