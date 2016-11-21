@@ -35,6 +35,13 @@ export default class BlogLandingPage extends React.Component {
         <Link to={`/post/${post.key}`}>
           {post.name}
         </Link>
+        {post.categories.length > 0 &&
+          post.categories.map((category) =>
+            <Link to={`/post?category=${category.key}`}>
+              {category.name}
+            </Link>
+          )
+        }
       </li>);
   }
 

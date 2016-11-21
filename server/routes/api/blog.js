@@ -7,12 +7,14 @@ import {
 exports = module.exports = function (req, res) {
 
   const postid = req.params.postid;
+  const query = req.query;
   const data = {
     post: {},
     posts: [],
+    category: null,
   };
 
-  const promises = [ getPosts(data) ];
+  const promises = [ getPosts(query, data) ];
 
   if(postid)
     promises.push(getPost(postid, data));

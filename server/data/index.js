@@ -11,16 +11,18 @@ import { getPost, getPosts } from './posts';
  * abstraction for dealing with the project.
  *
  * @param  {string} url  the current route path we are working on
- * @return {Promise}     A promise that will resolve with the data put together
+ * @param  {object} searchParams an object containing key value pairs of search
+ *                   params (e.g., id=something)
+ * @return {Promise} A promise that will resolve with the data put together
  * from the required functions.
  */
-export default function populateData(url) {
+export default function populateData(url, searchParams) {
   let data = {};
   let [arg1, arg2, arg3, arg4] = url.split('/').splice(1);
   return new Promise((resolve, reject) => {
     const promises = [];
     if(arg1 === 'blog') {
-      promises.push(getPosts(data));
+      promises.push(getPosts(searchParams, data));
       if(arg2)
         promises.push(getPost(arg2, data));
     }
