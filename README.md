@@ -26,3 +26,11 @@ Server-side rendering with react (and redux) including detail pages (e.g., blog 
 * redux-connect
 * react-router
 * reselect
+
+## Setup on AWS Instance
+
+* Create an instance of Amazon Linux on AWS
+* connect to instance with `ssh -i "<pem-file-name>.pem" ec2-user@ec2-35-164-36-7.us-west-2.compute.amazonaws.com`
+* [installing node on Amazon Linux (stackoverflow)](http://stackoverflow.com/questions/27350634/how-to-yum-install-node-js-on-amazon-linux/35165401#35165401)
+* [installing MongoDB on Amazon Linux](https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-amazon/#install-mongodb-community-edition)
+  * run mongo with `sudo service mongod start`

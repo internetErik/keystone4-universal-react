@@ -2,7 +2,7 @@
 import keystone from 'keystone';
 const User = keystone.list('User');
 
-export default function(done) {
+module.exports = function(done) {
   new User.model({
     name: { first: 'admin', last: 'user' },
     email: 'user@keystonejs.com',

@@ -2,6 +2,9 @@
 logs
 *.log
 
+# PEMs
+*.pem
+
 # Runtime data
 pids
 *.pid
