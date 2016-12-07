@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf build && mkdir build",
     "build-both": "babel -d ./build/both ./both -s",
-    "build-server": "babel -d ./build/server ./server -s && cp ./env.json ./build/env.json",
+    "build-server": "babel -d ./build/server ./server -s",
     "build-client": "webpack && cp -a ./public ./build/public",
     "build": "npm run clean && npm run build-client && npm run build-both && npm run build-server",
     "start": "node ./build/server/index.js",

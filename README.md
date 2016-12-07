@@ -12,10 +12,20 @@ Server-side rendering with react (and redux) including detail pages (e.g., blog 
 * `npm install`
 * `mkdir mongo_data`
 * `mkdir mongo_data/db`
-* to run project you must run
-  * `npm run mongod` to start a mongo instance
-  * `npm run webpack` to start webpack
-  * `npm start`  to start server (with `babel-node`)
+
+To run project you must run
+
+* `npm run mongod` to start a mongo instance
+* `npm run webpack` to start webpack
+* `npm start-dev`  to start server (with `babel-node`)
+
+## Building for Production
+
+`npm run build`
+
+## Run production build
+
+`npm start`
 
 ## Front-End Libraries/Frameworks In Use
 
