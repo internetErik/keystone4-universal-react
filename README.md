@@ -17,7 +17,7 @@ To run project you must run
 
 * `npm run mongod` to start a mongo instance
 * `npm run webpack` to start webpack
-* `npm start-dev`  to start server (with `babel-node`)
+* `npm run dev-start`  to start server (with `babel-node`)
 
 ## Building for Production
 

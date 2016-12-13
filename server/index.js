@@ -1,20 +1,26 @@
 'use strict';
+require('dotenv').config();
 import keystone from 'keystone';
 import routes from './routes';
 
 keystone.init({
   'name': 'Keystone Beta',
-  'brand': 'FCB Chicago',
+  'brand': 'Test Brand Name',
 
   'static': '../public',
 
   'auto update': true,
-  'mongo': 'mongodb://localhost/keystone-beta',
-  'cloudinary config':  { cloud_name: 'my-cloud', api_key: 'abc', api_secret: '123' },
+  'mongo': process.env.MONGO_URI || 'mongodb://localhost/keystone-beta',
+  'cloudinary config':  process.env.CLOUDINARY_CONFIG || {
+    cloud_name: 'my-cloud',
+    api_key   : 'abc',
+    api_secret: '123',
+  },
   'session': true,
   'auth': true,
   'user model': 'User',
-  'cookie secret': 'test',
+  'cookie secret': process.env.COOKIE_SECRET || 'changeme',
+  'port': process.env.PORT || 3000,
 });
 
 keystone.import('./models');

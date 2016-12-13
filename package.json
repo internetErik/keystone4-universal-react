@@ -2,20 +2,19 @@
   "name": "keystone-beta",
   "version": "0.0.1",
   "description": "Boilerplate for keystone 4 with universal react",
+  "author": "Erik Christianson",
   "private": true,
   "scripts": {
+    "build": "npm run clean && npm run build-client && npm run build-both && npm run build-server",
     "clean": "rm -rf build && mkdir build",
+    "build-client": "webpack && cp -a ./public ./build/public",
     "build-both": "babel -d ./build/both ./both -s",
     "build-server": "babel -d ./build/server ./server -s",
-    "build-client": "webpack && cp -a ./public ./build/public",
-    "build": "npm run clean && npm run build-client && npm run build-both && npm run build-server",
-    "start": "node ./build/server/index.js",
     "mongod": "mongod --dbpath mongo_data/db",
-    "dev-start": "babel-node server/index.js",
     "webpack": "webpack -w",
-    "nodemon": "nodemon server/index.js --exec babel-node"
+    "dev-start": "cp ./.env.dev ./.env && nodemon server/index.js --exec babel-node",
+    "start": "cp ./.env.prod ./.env && node ./build/server/index.js"
   },
-  "author": "",
   "babel": {
     "presets": [
       "es2015",
@@ -32,6 +31,7 @@
     "babel-loader": "^6.2.5",
     "babel-preset-react": "^6.16.0",
     "babel-register": "^6.16.3",
+    "dotenv": "^2.0.0",
     "html-loader": "^0.4.4",
     "keystone": "^4.0.0-beta.3",
     "react": "^15.3.2",
@@ -54,7 +54,6 @@
     "nodemon": "^1.11.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
-    "nodemon": "^1.11.0",
     "webpack": "^1.13.2"
   }
 }
