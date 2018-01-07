@@ -1,5 +1,5 @@
-'use strict';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { getMessage } from './api';
 import selectAboutPage from './selector';
@@ -20,7 +20,7 @@ const mapStateToProps = selectAboutPage();
 export default class AboutPage extends React.Component {
 
   static propTypes = {
-    message: React.PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
   };
 
   render() {

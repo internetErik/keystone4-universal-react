@@ -1,4 +1,3 @@
-'use strict';
 import {
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
@@ -9,7 +8,7 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
-  const newState = Object.assign({}, state);
+  const newState = {...state};
   switch(action.type) {
     case GET_POSTS_SUCCESS:
       newState.posts = action.posts;

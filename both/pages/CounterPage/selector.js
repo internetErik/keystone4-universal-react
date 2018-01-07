@@ -1,4 +1,3 @@
-'use strict';
 import { createSelector } from 'reselect';
 
 const selectCounterPageDomain = () => (state) => state.counterReducer;

@@ -2,45 +2,54 @@
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server'
-import { match, RouterContext } from 'react-router'
+import { renderToString } from 'react-dom/server';
+import StaticRouter from 'react-router/StaticRouter';
+import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
+import { parse as parseUrl } from 'url';
+import serialize from 'serialize-javascript';
+import { getLoadableState } from 'loadable-components/server';
 import routes from '../../../both/routes';
-import renderLayout from '../../views/layout';
 import reducers from '../../../both/reducers';
-import {
-  ReduxAsyncConnect,
-  loadOnServer,
-} from 'redux-connect';
+import renderLayout from '../../views/layout';
 import populateData from '../../data';
 
-exports = module.exports = (request, response) => {
-  // match against front-end route
-  match(
-    { routes, location: request.url },
-    (error, redirectLocation, renderProps) => {
-      if (error)
-        response.status(500).send(err.message);
-      else if (redirectLocation)
-        response.redirect(redirect.pathname + redirect.search);
-      else if (renderProps) {
-        // initialize a store for rendering app
-        const store = createStore(reducers);
-        // load data out of keystone's interface to mongo
-        populateData(request.url, request.query).then((data) => {
-          // wait for all components to finish async requests
-          loadOnServer({...renderProps, store, data}).then(() => {
-            // generate a string that we will render to the page
-            const html = renderToString(
-              <Provider store={store}>
-                <ReduxAsyncConnect {...renderProps} />
-              </Provider>
-            );
-            // render the page, and send it to the client
-            response.send(renderLayout(html, store.getState()));
-          });
-        });
+exports = module.exports = (req, res) => {
+  const url = req.originalUrl || req.url;
+  const location = parseUrl(url);
+
+  populateData(req.url, req.query).then((data) => {
+    const store = createStore(reducers);
+    loadOnServer({ store, location, routes, data }).then(() => {
+      const context = {};
+      const html = renderToString(
+        <Provider store={store}>
+          <StaticRouter location={location} context={context}>
+            <ReduxAsyncConnect routes={routes} />
+          </StaticRouter>
+        </Provider>
+      );
+
+      // handle redirects
+      if(context.url) {
+        req.header('Location', context.url)
+        return res.send(302)
       }
-      else
-        response.status(404).send('Not Found');
+
+      getLoadableState(html).then(pageScripts =>
+        res.send(renderLayout(html, store.getState(), pageScripts)))
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).end();
     });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).end();
+  });
 };
+
+const handle500 = err => {
+  console.log(err);
+  res.status(500).end();
+}

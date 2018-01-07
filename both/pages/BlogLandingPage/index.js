@@ -1,14 +1,13 @@
-'use strict';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { getPosts } from './api';
 import selectPostsPage from './selector';
 import {
   getPostsSuccess,
   getPostsFailure,
 } from './actions';
-
 
 const mapStateToProps = selectPostsPage();
 
@@ -20,16 +19,11 @@ const mapStateToProps = selectPostsPage();
 }], mapStateToProps)
 export default class BlogLandingPage extends React.Component {
 
-  constructor() {
-    super();
-    this.renderPostsLinks = this.renderPostsLinks.bind(this);
-  }
-
   static propTypes = {
-    posts: React.PropTypes.array.isRequired,
+    posts: PropTypes.array.isRequired,
   };
 
-  renderPostsLinks() {
+  renderPostsLinks = () => {
     return this.props.posts.map((post, ndx) =>
       <li key={ndx}>
         <Link to={`/post/${post.key}`}>

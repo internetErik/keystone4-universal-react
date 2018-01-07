@@ -1,6 +1,6 @@
-'use strict';
 import React from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import selectCounterPage from './selector';
 import {
@@ -10,7 +10,6 @@ import {
 
 const mapStateToProps = selectCounterPage();
 
-// these are mapped to props
 const actionCreators = {
   increaseCounter,
   decreaseCounter,
@@ -20,19 +19,19 @@ const actionCreators = {
 export default class CounterPage extends React.Component {
 
   static propTypes = {
-    currentCount: React.PropTypes.number.isRequired,
+    currentCount: PropTypes.number.isRequired,
   };
 
   render() {
     return (
-      <section>
-        <h1>Obligatory Counter Example!</h1>
-        <div>
-          <button onClick={this.props.increaseCounter}>+</button>
-          <button onClick={this.props.decreaseCounter}>-</button>
-          {this.props.currentCount}
-        </div>
-      </section>
+    <section>
+      <h1>Obligatory Counter Example!</h1>
+      <div>
+        <button onClick={this.props.increaseCounter}>+</button>
+        <button onClick={this.props.decreaseCounter}>-</button>
+        {this.props.currentCount}
+      </div>
+    </section>
     );
   }
 }

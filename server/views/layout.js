@@ -1,5 +1,5 @@
 'use strict';
-export default function renderLayout(app, initialState) {
+export default function renderLayout(app, initialState, pageScripts) {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,9 @@ export default function renderLayout(app, initialState) {
 <body>
   <div id="app">${app}</div>
   <script>window.__INITIAL_STATE = ${JSON.stringify(initialState)}</script>
-  <script src="/bundle.js"></script>
+  <script src="/vendor.js"></script>
+  <script src="/client.js"></script>
+  ${pageScripts.getScriptTag()}
 </body>
 </html>
   `;

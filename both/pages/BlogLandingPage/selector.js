@@ -1,4 +1,3 @@
-'use strict';
 import { createSelector } from 'reselect';
 
 const selectPostsPageDomain = () => (state) => state.blogReducer;

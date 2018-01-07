@@ -1,19 +1,28 @@
-'use strict';
 import React from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import renderRoutes from 'react-router-config/renderRoutes'
 
-const App = (props) =>(
-  <section>
-    <Link to={'/'}>Home</Link>
-    <Link to={'/about'}>About</Link>
-    <Link to={'/counter'}>Counter</Link>
-    <Link to={'/blog'}>Blog</Link>
-    {props.children}
-  </section>
+const App = ({ route }) => (
+<section>
+  <Link to={'/'}>
+    {'Home'}
+  </Link>
+  <Link to={'/about'}>
+    {'About'}
+  </Link>
+  <Link to={'/counter'}>
+    {'Counter'}
+  </Link>
+  <Link to={'/blog'}>
+    {'Blog'}
+  </Link>
+  {renderRoutes(route.routes)}
+</section>
 );
 
 App.propTypes = {
-  children: React.PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 }
 
 export default App;
