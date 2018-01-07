@@ -14,8 +14,8 @@ pids
 mongo_data
 
 # Ignoring webpack bundles
-public/bundle.js
-public/bundle.js.map
+public/*.js
+public/*.js.map
 
 # Ignore build code
 build
