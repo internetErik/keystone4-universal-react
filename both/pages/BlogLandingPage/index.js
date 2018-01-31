@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { asyncConnect } from 'redux-connect';
 import { Link } from 'react-router-dom';
+import { asyncConnect } from 'redux-connect';
 import { getPosts } from './api';
 import selectPostsPage from './selector';
 import {

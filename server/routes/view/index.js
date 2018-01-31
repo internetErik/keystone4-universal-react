@@ -35,8 +35,14 @@ exports = module.exports = (req, res) => {
         return res.send(302)
       }
 
-      getLoadableState(html).then(pageScripts =>
-        res.send(renderLayout(html, store.getState(), pageScripts)))
+      // render the page, and send it to the client
+      res.send(renderLayout(html, '', store.getState(), !!(req.user && req.user.isAdmin)))
+
+      // render the page, and send it to the client
+      // can't use until redux-connect works with loadable-components
+      // getLoadableState(html).then(pageScripts =>
+      //   res.send(renderLayout(html, pageScripts.getScriptTag(), store.getState(), !!(req.user && req.user.isAdmin)))
+      // )
     })
     .catch(err => {
       console.log(err);
@@ -48,8 +54,3 @@ exports = module.exports = (req, res) => {
     res.status(500).end();
   });
 };
-
-const handle500 = err => {
-  console.log(err);
-  res.status(500).end();
-}

@@ -19,7 +19,7 @@ console.log('NODE_ENV =', env);
 let config = {
   entry: {
    client: './client/index.js',
-   vendor: ['react', 'react-router', 'react-router-dom', 'redux', 'redux-connect', 'react-router-config', 'reselect'],
+   vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'react-router-dom', 'react-router-config', 'react-router-redux', 'redux-connect', 'reselect'],
   },
   output: {
     path: __dirname + '/public',
@@ -28,6 +28,10 @@ let config = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.bundle\.js$/,
+      //   use: 'bundle-loader'
+      // },
       {
         test: /\.(jsx|js)$/,
         exclude: /node_modules/,

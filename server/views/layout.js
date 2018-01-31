@@ -1,6 +1,6 @@
 'use strict';
-export default function renderLayout(app, initialState, pageScripts) {
-  return `
+
+const renderLayout = (app, pageScripts, initialState, hasUser) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +9,26 @@ export default function renderLayout(app, initialState, pageScripts) {
 </head>
 <body>
   <div id="app">${app}</div>
-  <script>window.__INITIAL_STATE = ${JSON.stringify(initialState)}</script>
-  <script src="/vendor.js"></script>
-  <script src="/client.js"></script>
-  ${pageScripts.getScriptTag()}
+  <script>
+    window.__INITIAL_STATE = ${JSON.stringify(initialState)}
+    window.__ENV = "${ process.env.NODE_ENV }";
+    window.__USER = ${ hasUser };
+  </script>
+  ${
+    process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staged'
+      ? `
+        <script src="/vendor.min.js"></script>
+        <script src="/client.min.js"></script>
+      `
+      : `
+        <script src="/vendor.js"></script>
+        <script src="/client.js"></script>
+      `
+  }
+  ${ pageScripts }
+  ${pageScripts}
 </body>
 </html>
-  `;
-}
+`
+
+export default renderLayout;
