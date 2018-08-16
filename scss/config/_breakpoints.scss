@@ -1,13 +1,8 @@
-$bp-lgx: 1100px;
-$bp-lg : 1080px; // @lg
-$bp-md : 820px;  // @md
-$bp-sm : 650px;  // @sm
-$bp-smx: 500px;  // @smx
-
-$bp-500h: 500px; //@500h
-$bp-650h: 650px; //@650h
-$bp-800h: 800px; //@800h
-$bp-1000h: 1000px; //@1000h
+$bp-lgx: 1700px;
+$bp-lg : 1097px;
+$bp-md : 784px;
+$bp-sm : 560px;
+$bp-smx: 400px;
 
 $bp-lgx-mx: (name: '\\@lgx', cond: 'all and (max-width: ' + $bp-lgx + ')');
 $bp-lg-mx : (name: '\\@lg' , cond: 'all and (max-width: ' + $bp-lg + ')');
@@ -15,9 +10,8 @@ $bp-md-mx : (name: '\\@md' , cond: 'all and (max-width: ' + $bp-md + ')');
 $bp-sm-mx : (name: '\\@sm' , cond: 'all and (max-width: ' + $bp-sm + ')');
 $bp-smx-mx: (name: '\\@smx', cond: 'all and (max-width: ' + $bp-smx + ')');
 
-$bp-500h-mih: (name: '\\@500h', cond: 'all and (min-height: ' + $bp-500h + ')');
-$bp-650h-mih: (name: '\\@650h', cond: 'all and (min-height: ' + $bp-650h + ')');
-$bp-800h-mih: (name: '\\@800h', cond: 'all and (min-height: ' + $bp-800h + ')');
-$bp-1000h-mih: (name: '\\@1000h', cond: 'all and (min-height: ' + $bp-1000h + ')');
-
-$bp-650h-mah: (name: '\\@650mah', cond: 'all and (max-height: ' + $bp-650h + ')');
+$bp-lgx-mn: (name: '\\@lgx-mn', cond: 'all and (min-width: ' + $bp-lgx + ')');
+$bp-lg-mn : (name: '\\@lg-mn',  cond: 'all and (min-width: ' + $bp-lg + ')');
+$bp-md-mn : (name: '\\@md-mn',  cond: 'all and (min-width: ' + $bp-md + ')');
+$bp-sm-mn : (name: '\\@sm-mn',  cond: 'all and (min-width: ' + $bp-sm + ')');
+$bp-smx-mn: (name: '\\@smx-mn', cond: 'all and (min-width: ' + $bp-smx + ')');

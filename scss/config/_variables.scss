@@ -15,10 +15,7 @@ $color-lightgray: lightgray;
 $color-gray     : gray;
 
 // width of site's content
-$width-wrapper     : 980px;
-$width-wrapper-wide: 1100px;
-$width-wrapper-extra-wide: 90%;
-$width-wrapper-extra-wide-md: 100%;
+$width-wrapper: 1024px;
 
 // the footer is always supposed to be on the bottom of the page, unless the
 // content naturally pushes the footer below the fold. However, some content
@@ -46,65 +43,11 @@ $min-height-site   : $height-cutoff-point;
 $min-height-site-sm: $height-cutoff-point + 400px;
 
 // site colors - often named using http://chir.ag/projects/name-that-color
-$color-black      : #070b08;
-$color-dark-gray  : #4b4b4b;
-$color-gray       : #7e8081;
-$color-shadow     : #bfbfbf;
-$color-alabaster  : #f8f8f8;
-$color-offwhite   : #fffbf7;
-$color-dark-blue  : #23b3ef;
-$color-mid-blue   : #8bd2db;
-$color-pale-blue  : #f5feff;
-$color-dark-purple: #36153b;
-$color-purple     : #6267ad;
-$color-mid-purple : #694a6e;
-$color-pale-purple: #c2c3db;
-$color-neon-yellow: #d6d15d;
-$color-pale-yellow: #f1e8b8;
-$color-brass      : #c57b57;
-$color-almond     : #f1dac4;
-$color-linen      : #faefe1;
-$color-maroon     : #6c062c;
-$color-bright-red : #eb3b43;
-$color-dark-green : #075660;
-$color-french-rose: #ee4d90;
 $color-background : $color-white;
 
 // transparent
 $color-black-transparent: rgba(#000, .25);
+
 //$color- #ce1a37;
 //$color- #db2c59;
 // nav colors purple, brass, dark-blue, bright-red, neon-yellow, almond, mid-blue
-
-// font-family
-$ff-heebo   : 'Heebo';
-$ff-playfair: 'Playfair Display';
-
-// susy grid config
-$grid-columns-count: 12;
-$susy: (
-  flow              : ltr,
-  math              : fluid,
-  output            : float,
-  gutter-position   : after,
-  container         : auto,
-  container-position: center,
-  columns           : $grid-columns-count,
-  gutters           : .2,
-  column-width      : false,
-  global-box-sizing : border-box,
-  last-flow         : to,
-  debug: (
-    image : hide,
-    color : rgba(#66f, .25),
-    output: background,
-    toggle: top right,
-  ),
-  use-custom: (
-    background-image  : true,
-    background-options: false,
-    box-sizing        : true,
-    clearfix          : false,
-    rem               : true,
-  )
-);
