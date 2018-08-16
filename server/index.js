@@ -61,6 +61,10 @@ keystone.set('routes', require('./routes'));
 keystone.set('nav', {
   'pages': [
     'home-pages',
+    'faq-pages',
+  ],
+  'data' : [
+    'faqs',
   ],
 });
 

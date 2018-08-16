@@ -2,6 +2,7 @@ import React from 'react';
 
 import App from './app';
 import HomePage     from './pages/HomePage';
+import FaqPage      from './pages/FaqPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const routes = [{
@@ -11,6 +12,10 @@ const routes = [{
       path     : '/',
       exact    : true,
       component: HomePage,
+    },
+    {
+      path     : '/faqs',
+      component: FaqPage,
     },
     {
       path     : '*',

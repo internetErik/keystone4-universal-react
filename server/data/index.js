@@ -1,5 +1,7 @@
 // page data
-import { getPageData }                 from './page-data';
+import { getPageData } from './page-data';
+
+import { getFaqsData } from './faq';
 
 // cache
 import { siteConfigurationCache } from '../cache/siteConfiguration';
@@ -47,6 +49,9 @@ const handleMainPages = (/*ref*/data, pagePath, args, req, res, isSSR) => {
   switch(pagePath) {
     case 'home-page':
       promises.push(getPageData(data, 'HomePage'));
+      break;
+    case 'faqs':
+      promises.push(getPageData(data, 'FaqPage'), getFaqsData(data));
       break;
     default:
       break;
