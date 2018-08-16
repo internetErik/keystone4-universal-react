@@ -1,13 +1,10 @@
 import { combineReducers } from 'redux';
-import { reducer as reduxAsyncConnect } from 'redux-connect';
-import aboutReducer from './pages/AboutPage/reducer';
-import counterReducer from './pages/CounterPage/reducer';
-import blogReducer from './pages/BlogLandingPage/reducer';
+import appReducer from './app-reducer';
 import { routerReducer } from 'react-router-redux';
+import { reducer as reduxAsyncConnect } from 'redux-connect';
+
 export default combineReducers({
-  aboutReducer,
-  counterReducer,
-  blogReducer,
+  appReducer,
   routing: routerReducer,
-  reduxAsyncConnect,
+  reduxAsyncConnect,// must be last
 });

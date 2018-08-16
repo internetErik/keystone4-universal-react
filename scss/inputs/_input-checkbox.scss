@@ -1,0 +1,23 @@
+.input-checkbox {
+  .checkbox__dummy--checked::before,
+  .checkbox__dummy--checked::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background-color: $color-white;
+  }
+
+  .checkbox__dummy--checked::before {
+    top: 9px;
+    left: 1px;
+    width: 7px;
+    transform: rotateZ(45deg);
+  }
+
+  .checkbox__dummy--checked::after {
+    top: 7px;
+    left: 4px;
+    width: 12px;
+    transform: rotateZ(-45deg);
+  }
+}

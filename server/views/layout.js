@@ -1,34 +1,67 @@
-'use strict';
 
-const renderLayout = (app, pageScripts, initialState, hasUser) => `
+const CDN_URL = process.env.CLOUDFRONT_BASE_URL;
+const NODE_ENV = process.env.NODE_ENV;
+const HASH = process.env.WEBPACK_HASH;
+
+/**
+ * Creates a string representing the url a css file is downloaded from
+ * @param  {String} scriptName the filename of the css
+ * @return {String}            the url used for downloading the css
+ */
+const generateStyleHref = () => (
+  NODE_ENV === 'staged'     ? `${CDN_URL}assets/staged/styles-${HASH}.css`
+: NODE_ENV === 'production' ? `${CDN_URL}assets/styles-${HASH}.css`
+: '/styles.css'
+)
+
+/**
+ * Creates a string representing the url a javaScript file is downloaded from
+ * @param  {String} scriptName the filename of the script
+ * @return {String}            the url used for downloading the script
+ */
+const generateScriptSrc = scriptName => (
+  NODE_ENV === 'staged'     ? `${CDN_URL}assets/staged/${scriptName}-${HASH}.min.js`
+: NODE_ENV === 'production' ? `${CDN_URL}assets/${scriptName}-${HASH}.min.js`
+: `/${scriptName}.js`
+)
+
+/**
+ * This renders the page. It injects the body of the site rendered from react
+ *
+ * @param  {object} head         All the data for the head of the site
+ * @param  {string} app          The rendered react application
+ * @param  {string} pageScripts  The scripts that should be loading onto the page
+ * @param  {object} initialState The initial state of the redux store
+ * @param  {bool}   hasUser      True if there is a user logged in to keystone
+ * @return {string}              A string that is returned through the http(s) response to the client
+ */
+const renderLayout = (head, app, pageScripts, initialState, hasUser) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hello World</title>
-</head>
-<body>
-  <div id="app">${app}</div>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  ${head.meta.toString()}
+  ${head.link.toString()}
+  ${head.title.toString()}
   <script>
-    window.__INITIAL_STATE = ${JSON.stringify(initialState)}
-    window.__ENV = "${ process.env.NODE_ENV }";
-    window.__USER = ${ hasUser };
+    var isIE = (typeof Object.assign === 'undefined' || window.navigator.userAgent.indexOf("Edge") > -1);
+    document.querySelector('html').classList.add(isIE ? 'not-ie' : 'is-ie');
   </script>
-  ${
-    process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staged'
-      ? `
-        <script src="/vendor.min.js"></script>
-        <script src="/client.min.js"></script>
-      `
-      : `
-        <script src="/vendor.js"></script>
-        <script src="/client.js"></script>
-      `
-  }
+</head>
+<body style="overflow-x: hidden;">
+  <div id="app">${app}</div>
+  <link rel="stylesheet" href="${generateStyleHref()}" />
+  <script>
+  window.__INITIAL_STATE = ${JSON.stringify(initialState)};
+  window.__ENV = "${ NODE_ENV }";
+  window.__CLOUDFRONT_BASE_URL = "${CDN_URL}"
+  window.__USER = ${ hasUser };
+  </script>
+  <script src="${generateScriptSrc('vendor')}"></script>
+  <script src="${generateScriptSrc('main')}"></script>
   ${ pageScripts }
-  ${pageScripts}
 </body>
 </html>
-`
+`;
 
 export default renderLayout;

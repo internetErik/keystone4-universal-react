@@ -1,12 +1,21 @@
-'use strict';
-import keystone from 'keystone';
-const User = keystone.list('User');
+/**
+ * This script automatically creates a default Admin user when an
+ * empty database is used for the first time. You can use this
+ * technique to insert data into any List you have defined.
+ *
+ * Alternatively, you can export a custom function for the update:
+ * module.exports = function(done) { ... }
+ */
 
-module.exports = function(done) {
-  new User.model({
-    name: { first: 'admin', last: 'user' },
-    email: 'user@keystonejs.com',
-    password: 'admin',
-    canAccessKeystone: true
-  }).save(done);
-}
+exports.create = {
+  User: [
+    { 'name.first': 'Admin', 'name.last': 'User', 'email': 'user@keystonejs.com', 'password': 'admin', 'isAdmin': true },
+  ],
+  SiteConfiguration: [
+    { title : 'Global Site Configuration' },
+  ],
+  HomePage: [
+    { title: 'Home Page' },
+  ],
+};
+

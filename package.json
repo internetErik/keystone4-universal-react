@@ -1,8 +1,7 @@
 {
-  "name": "keystone-beta",
-  "version": "0.0.1",
-  "description": "Boilerplate for keystone 4 with universal react",
-  "author": "Erik Christianson",
+  "name": "keystone4-universal-react",
+  "version": "1.0.0",
+  "description": "Boilerplate for Keystonejs site using React with Server Side Rendering",
   "private": true,
   "scripts": {
     "setup": "npm install --no-save && mkdir mongo_data && cp .env.dev .env",
@@ -12,73 +11,104 @@
     "build-client": "cross-env webpack -p && cp -a ./public ./build-new/public",
     "build-both": "babel -d ./build-new/both ./both -s",
     "build-server": "babel -d ./build-new/server ./server -s",
-    "build-config": "cp ./.env ./build-new/.env",
-    "build": "npm install --no-save && npm run clean && npm run build-client && npm run build-both && npm run build-server && npm run build-config && rm -rf ./build && cp -rf ./build-new ./build",
+    "build-config": "cp ./.env.tmp ./build-new/.env",
+    "build-no-install": "npm run clean && cp .env .env.tmp && npm run build-client && npm run build-both && npm run build-server && npm run build-config && rm -rf ./build && cp -rf ./build-new ./build",
+    "build": "npm install --no-save && npm run build-no-install",
+    "deploy": "git pull && npm run build && pm2 restart 0",
     "backup": "rm -rf ./build-bak && cp -rf ./build ./build-bak",
     "revert": "rm -rf ./build && cp -rf ./build-bak ./build",
     "mongod": "mongod --dbpath mongo_data",
     "webpack": "cross-env env UV_THREADPOOL_SIZE=100 webpack -w",
     "nodemon": "cross-env env UV_THREADPOOL_SIZE=100 nodemon server/index.js --watch ./server --exec babel-node",
-    "nodemon-all": "cross-env env UV_THREADPOOL_SIZE=100 nodemon server/index.js --watch ./server --watch ./both --watch ./client --exec babel-node",
+    "nodemon-all": "cross-env env UV_THREADPOOL_SIZE=100 nodemon server/index.js --watch ./server --watch ./both --exec babel-node",
+    "start-no-install": "npm run nodemon-all",
     "start": "npm install --no-save && npm run nodemon-all"
   },
+  "author": "Erik Christianson",
   "babel": {
     "presets": [
-      "env",
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": [
+              ">0.25%",
+              "not ie 11",
+              "not op_mini all"
+            ]
+          }
+        }
+      ],
       "react",
       "es2015",
       "stage-2"
     ],
     "plugins": [
-      "transform-decorators-legacy",
-      "dynamic-import-webpack"
-    ]
+      "transform-decorators-legacy"
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "transform-react-remove-prop-types"
+        ]
+      }
+    }
   },
   "license": "ISC",
   "dependencies": {
-    "ajv": "^5.5.2",
+    "atomic-scss": "^3.0.1",
+    "aws-sdk": "^2.141.0",
+    "connect-mongo": "^2.0.0",
     "dotenv": "^2.0.0",
+    "glob": "^7.1.2",
     "history": "^4.7.2",
-    "html-loader": "^0.4.4",
-    "keystone": "^4.0.0-beta.8",
+    "keystone": "^4.0.0",
+    "keystone-storage-adapter-s3": "^2.0.0",
     "loadable-components": "^0.4.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dnd": "^2.5.4",
-    "react-dom": "^16.2.0",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
+    "mongoose": "^4.12.5",
+    "mongoose-encryption": "^1.5.0",
+    "nodemailer": "^4.3.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-helmet": "^5.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "redux": "^3.7.2",
+    "redux": "^4.0.0",
     "redux-connect": "^7.0.0",
-    "reselect": "^2.5.4",
-    "serialize-javascript": "^1.4.0",
+    "scss-functional-helpers": "^1.0.1",
     "underscore": "^1.8.3",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-plugin-dynamic-import-webpack": "^1.0.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.10",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
-    "bundle-loader": "^0.5.5",
-    "cross-env": "^5.1.1",
-    "css-loader": "^0.25.0",
-    "extract-loader": "^0.1.0",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "node-sass": "^4.5.3",
-    "nodemon": "^1.11.0",
-    "sass-loader": "^6.0.6",
+    "compression-webpack-plugin": "^1.1.11",
+    "cross-env": "^3.2.4",
+    "css-loader": "^0.28.11",
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "glob-all": "^3.1.0",
+    "html-loader": "^0.4.5",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.8.3",
+    "nodemon": "^1.12.1",
+    "sass-loader": "^6.0.7",
     "style-loader": "^0.18.2",
-    "webpack": "^3.8.1",
-    "webpack-bundle-analyzer": "^2.8.3"
+    "webpack": "^4.16.0",
+    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-cli": "^2.1.5",
+    "webpack-s3-plugin": "^1.0.0-rc.0"
   }
 }

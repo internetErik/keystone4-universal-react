@@ -1,41 +1,46 @@
-'use strict';
 import keystone from 'keystone';
-import {
-  initErrorHandlers,
-  initLocals,
-  flashMessages,
-} from './middleware';
+import redirectData from './redirect-data';
+import { initLocals } from './middleware';
 
 const importRoutes = keystone.importer(__dirname);
 
-// Common Middleware
-keystone.pre('routes', initErrorHandlers);
-keystone.pre('routes', initLocals);
-keystone.pre('render', flashMessages);
-
-// Handle 404 errors
-keystone.set('404', (req, res, next) => res.notfound());
-
-// Handle other errors
-keystone.set('500', (err, req, res, next) => {
-  let title, message;
-  if (err instanceof Error) {
-    message = err.message;
-    err = err.stack;
-  }
-  res.err(err, title, message);
-});
-
 // Load Routes
-const routes = {
-  view: importRoutes('./view'),
-  api: importRoutes('./api'),
+const controllers = {
+  view      : importRoutes('./view'), // view controllers
+  ///
+  /// APIs
+  ///
+
+  // general
+  admin     : importRoutes('./api/admin-commands'),
+  page      : importRoutes('./api/page'),
 };
 
 // Bind Routes
-const controllers = (app) => {
-  app.all('/api/blog/:postid?', routes.api.blog);
-  app.get('*', routes.view.index);
+exports = module.exports = app => {
+
+  // before any route, load in the locals
+  keystone.pre('routes', initLocals);
+
+  // redirects
+  Object.keys(redirectData)
+    .forEach((key) => app.get(`/${key}`, controllers.view.redirect));
+
+  /*****************************************
+   *****************************************
+    API Routes
+   *****************************************
+   *****************************************/
+
+  // Page API Routes
+  app.all('/api/page',   controllers.page.pageData); // home page on main site
+  app.all('/api/page/*', controllers.page.pageData); // all other pages
+
+  ///
+  /// View routes
+  ///
+
+  // main site
+  app.get('*', controllers.view.main);
 };
 
-export default controllers;

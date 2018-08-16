@@ -1,0 +1,11 @@
+html {
+  //set 10px baseline
+  // the advantage of this is ems are easier to use 1.5em = 15px
+  font-size: 10px;
+}
+
+body {
+  font-family: $ff-heebo, sans-serif;
+  font-size: $font-size-base;
+  line-height: 1.5;
+}

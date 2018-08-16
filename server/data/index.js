@@ -1,5 +1,8 @@
-'use strict';
-import { getPost, getPosts } from './posts';
+// page data
+import { getPageData }                 from './page-data';
+
+// cache
+import { siteConfigurationCache } from '../cache/siteConfiguration';
 
 /**
  * The function takes a url, and determines what functions will be required
@@ -11,23 +14,43 @@ import { getPost, getPosts } from './posts';
  * abstraction for dealing with the project.
  *
  * @param  {string} url  the current route path we are working on
- * @param  {object} searchParams an object containing key value pairs of search
- *                   params (e.g., id=something)
- * @return {Promise} A promise that will resolve with the data put together
+ * @return {Promise}     A promise that will resolve with the data put together
  * from the required functions.
  */
-export default function populateData(url, searchParams) {
-  let data = {};
-  let [arg1, arg2, arg3, arg4] = url.split('/').splice(1);
+export default function populateData(pagePath, args, req, res) {
+  const data = {};
+  let [partOne] = req.path.split('/').splice(1);
+  const isSSR = partOne !== 'api';
+
   return new Promise((resolve, reject) => {
-    const promises = [];
-    if(arg1 === 'blog') {
-      promises.push(getPosts(searchParams, data));
-      if(arg2)
-        promises.push(getPost(arg2, data));
-    }
+    const promises = handleMainPages(data, pagePath, args, req, res, isSSR);
 
     Promise.all(promises)
-      .then(() => resolve(data));
+      .then(() => {
+        if(data.redirect)
+          res.redirect(302, data.redirect);
+        resolve(data);
+      });
   });
+}
+
+const handleMainPages = (/*ref*/data, pagePath, args, req, res, isSSR) => {
+  const promises = [];
+
+  // handle home page, which doesn't have a route
+  if(pagePath === '/' || pagePath === '')
+    pagePath = 'home-page';
+
+  // ********************
+  // these are all routes from the react-router configuration!
+  // ********************
+  switch(pagePath) {
+    case 'home-page':
+      promises.push(getPageData(data, 'HomePage'));
+      break;
+    default:
+      break;
+  }
+
+  return promises;
 }

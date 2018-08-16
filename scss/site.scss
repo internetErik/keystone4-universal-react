@@ -1,0 +1,36 @@
+@import "./config/variables";
+@import "./config/breakpoints";
+@import "./config/atomic-variables";
+@import "./config/atomic-config";
+@import "./config/functional-helpers-config";
+
+@import "./config/reset";
+@import "../node_modules/atomic-scss/scss/atomic";
+@import "../node_modules/scss-functional-helpers/scss/functional-helpers";
+
+// some default styling for elements
+@import "./site/default";
+
+// icons
+// @import "./site/icons";
+
+// site wide styles
+@import "./site/typography";
+
+// styles for svgs. Since the css was written by illustrator,
+// it may make sense to keep them all in one place
+// @import "./site/svg";
+
+// global components (used on every page)
+@import "./global/header";
+@import "./global/site-body";
+@import "./global/footer";
+
+// blocks
+
+// components (used on some pages)
+
+// inputs
+@import "./inputs/input-checkbox";
+
+// page level css (used on a single page)

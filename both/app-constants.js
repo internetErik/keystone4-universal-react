@@ -1,0 +1,9 @@
+export const PAGE_DATA_LOAD_SUCCESS = 'global/PAGE_DATA_LOAD_SUCCESS';
+export const PAGE_DATA_LOAD_FAILURE = 'global/PAGE_DATA_LOAD_FAILURE';
+
+export const OPEN_NAVIGATION_SECTION = 'global/OPEN_NAVIGATION_SECTION';
+export const OPEN_MOBILE_NAVIGATION  = 'global/OPEN_MOBILE_NAVIGATION';
+export const CLOSE_MOBILE_NAVIGATION = 'global/CLOSE_MOBILE_NAVIGATION';
+
+export const OPEN_LIGHTBOX           = 'global/OPEN_LIGHTBOX';
+export const CLOSE_LIGHTBOX          = 'global/CLOSE_LIGHTBOX';

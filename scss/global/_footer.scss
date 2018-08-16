@@ -1,0 +1,11 @@
+.footer {
+  height: $height-footer;
+
+  @media all and (max-width: $bp-md) {
+    height: $height-footer-md;
+  }
+
+  @media all and (max-width: $bp-sm) {
+    height: $height-footer-sm;
+  }
+}

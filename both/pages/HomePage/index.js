@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react'
+import { asyncConnect } from 'redux-connect'
+import loadable from 'loadable-components'
 
+import {
+  pageDataLoadSuccessAction,
+  pageDataLoadFailureAction,
+} from '../../app-actions';
+
+import { apiRequest } from '../../util/api-request';
+
+const Page = loadable(() =>
+  import(/* webpackChunkName: "home-page" */'./component')
+)
+
+const mapStateToProps = state => ({
+  pageData : state.appReducer.pageData,
+})
+
+@asyncConnect([{
+  promise: ({ params, helpers, store: { dispatch }, data }) =>
+    apiRequest('page', {}, data)
+      .then(({ data: { pageData } }) => dispatch(pageDataLoadSuccessAction(pageData)))
+}], mapStateToProps)
 export default class HomePage extends React.Component {
-
-  clickHandler = () => alert()
-
   render() {
-    return (
-    <section>
-      <button onClick={this.clickHandler}>Click Me!</button>
-    </section>
-    );
+    return <Page {...this.props} />
   }
 }

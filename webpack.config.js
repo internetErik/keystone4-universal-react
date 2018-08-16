@@ -1,10 +1,12 @@
-'use strict';
 require('dotenv').config();
 const webpack = require('webpack');
-const glob = require('glob');
+const glob = require('glob-all');
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const fs = require('fs');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require("compression-webpack-plugin")
+const S3Plugin = require('webpack-s3-plugin');
 
 const PATHS = {
   index: path.join(__dirname, 'server'),
@@ -17,28 +19,62 @@ const env = process.env.NODE_ENV || 'dev';
 console.log('NODE_ENV =', env);
 
 let config = {
+  mode: (env === 'dev') ? 'development' : 'production',
   entry: {
-   client: './client/index.js',
-   vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'react-router-dom', 'react-router-config', 'react-router-redux', 'redux-connect', 'reselect'],
+    main      : './client/main.js',
+    vendor    : ['react', 'react-dom', 'react-router', 'react-redux', 'react-router-dom', 'redux', 'redux-connect', 'react-router-config', 'whatwg-fetch'],
   },
   output: {
     path: __dirname + '/public',
-    publicPath: '/',
-    filename: (env === 'dev') ? '[name].js' : '[name].min.js'
+    publicPath: (
+        (env === 'staged')     ? process.env.CLOUDFRONT_BASE_URL + 'assets/staged/'
+      : (env === 'production') ? process.env.CLOUDFRONT_BASE_URL + 'assets/'
+      : '/'
+      ),
+    filename: (env === 'dev') ? '[name].js' : '[name]-[hash].min.js',
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          name: 'vendor',
+          test: 'vendor',
+          enforce: true
+        },
+      }
+    },
+    runtimeChunk: false,
   },
   module: {
     rules: [
-      // {
-      //   test: /\.bundle\.js$/,
-      //   use: 'bundle-loader'
-      // },
       {
         test: /\.(jsx|js)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          plugins: [ 'transform-decorators-legacy', 'dynamic-import-webpack' ],
-          presets: ['env', 'react', 'es2015', 'stage-2'],
+          plugins: [
+            'transform-decorators-legacy',
+            ...(
+              env === 'staged' || env === 'production'
+                ? ['transform-react-remove-prop-types']
+                : []
+            )
+          ],
+          presets: [
+            ['env', {
+              'targets': {
+                'browsers': [
+                  '>0.25%',
+                  'not ie 11',
+                  'not op_mini all',
+                ]
+              }
+            }],
+            'react',
+            'es2015',
+            'stage-2',
+          ],
         }
       },
       {
@@ -51,18 +87,18 @@ let config = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          use: 'css-loader!sass-loader'
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader?sourceMap"
+        ]
       },
     ],
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
-      minChunks: Infinity,
-    })
+    new MiniCssExtractPlugin({
+      filename: (env === 'dev') ? 'styles.css' : 'styles-[hash].css',
+    }),
     // new BundleAnalyzerPlugin(),
   ]
 };
@@ -89,6 +125,39 @@ if (env === 'staged' || env === 'production') {
       DEBUG: false,
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new CompressionPlugin({
+      include: /.*\.(css|js)/,
+      asset: '[file]',
+    }),
+    // This is a plugin to write to the .env file
+    function () {
+      this.plugin("done", function (stats) {
+        const appendString = `WEBPACK_HASH=${stats.hash}`;
+        fs.appendFile('.env.tmp', appendString, err => {
+          if (err) throw err;
+          console.log(`Wrote to .env.tmp: ${appendString}`);
+        });
+      });
+    },
+    new S3Plugin({
+      include: /.*\.(css|js)/,
+      s3Options: {
+        accessKeyId     : process.env.S3_KEY,
+        secretAccessKey : process.env.S3_SECRET,
+        region          : process.env.S3_REGION,
+      },
+      s3UploadOptions: {
+        Bucket: process.env.S3_BUCKET,
+        ContentEncoding(fileName) {
+          return 'gzip';
+        },
+      },
+      basePath: (
+          (env === 'staged')     ? 'assets/staged'
+        : (env === 'production') ? 'assets'
+        : '/'
+      ),
+    })
   );
 }
 module.exports = config;
