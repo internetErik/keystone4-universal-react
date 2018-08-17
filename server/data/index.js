@@ -53,6 +53,9 @@ const handleMainPages = (/*ref*/data, pagePath, args, req, res, isSSR) => {
     case 'faqs':
       promises.push(getPageData(data, 'FaqPage'), getFaqsData(data));
       break;
+    case 'contact':
+      promises.push(getPageData(data, 'ContactPage'));
+      break;
     default:
       break;
   }

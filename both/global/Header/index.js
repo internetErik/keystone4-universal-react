@@ -7,6 +7,7 @@ const Header = ({ className }) => (
   <div className="header__container grid-container pl10 pr10 h100% posr">
     <Link className="mr10" to="/">Home</Link>
     <Link className="mr10" to="/faqs">FAQs</Link>
+    <Link className="mr10" to="/contact">Contact</Link>
   </div>
 </header>
 );

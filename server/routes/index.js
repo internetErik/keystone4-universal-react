@@ -10,7 +10,7 @@ const controllers = {
   ///
   /// APIs
   ///
-
+  forms     : importRoutes('./api/forms'),
   // general
   admin     : importRoutes('./api/admin-commands'),
   page      : importRoutes('./api/page'),
@@ -31,6 +31,8 @@ exports = module.exports = app => {
     API Routes
    *****************************************
    *****************************************/
+
+   app.post('/api/contact', controllers.forms.contact);
 
   // Page API Routes
   app.all('/api/page',   controllers.page.pageData); // home page on main site

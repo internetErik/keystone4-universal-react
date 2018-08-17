@@ -62,6 +62,7 @@ keystone.set('nav', {
   'pages': [
     'home-pages',
     'faq-pages',
+    'contact-pages',
   ],
   'data' : [
     'faqs',

@@ -20,5 +20,8 @@ exports.create = {
   FaqPage: [
     { title: 'Faq Page' },
   ],
+  ContactPage: [
+    { title: 'Contact Page' },
+  ],
 };
 

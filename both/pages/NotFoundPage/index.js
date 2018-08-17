@@ -12,6 +12,9 @@ const NotFoundPage = () => (
       }
     ]}
   />
+  <div className="grid-container">
+    Oh no! 404 Not Found
+  </div>
 </section>
 );
 
