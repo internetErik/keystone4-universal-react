@@ -13,7 +13,7 @@ There is a `.env` file required that represents some configuration information.
   * `git checkout dev`
   * `npm run setup`
 
-### Running the site
+### Running the Project
 
 Once project is setup run the following three commands in the root of the project in separate terminals:
 
@@ -37,7 +37,9 @@ This will:
 * copies the current environment file (`.env`) to `./build-new/.env`.
 * removes current `./build` folder and then renames `./build-new` to `./build`
 
-## Creating an AWS instance on EC2
+## Hosting on Amazon AWS
+
+### Creating an AWS instance on EC2
 
 * Create an EC2 instance with Ubuntu
 * [Install mongo](https://docs.mongodb.com/v3.4/tutorial/install-mongodb-on-ubuntu/)
@@ -55,7 +57,7 @@ This will:
 * `sudo pm2 start server/index.js`
   * optionally run `sudo pm2 logs 0` to see if everything is alright with the server
 
-### `PM2` notes
+#### `PM2` notes
 
 `PM2` is used to run the site, and to restart it if there is an error.
 
@@ -68,19 +70,19 @@ To stop running:
 To restart:
 * `sudo pm2 restart 0`
 
+To stop running:
+* Use `pm2 stop staged` to stop the correct process
+* Use `pm2 delete staged` to delete the correct process from pm2 process list
+
 #### Database Logs
 
 The mongo database data is stored in `/var/lib/mongo/`
 
 The mongo logs are stored in `/var/logs/mongodb`
 
-To stop running:
-* Use `pm2 stop staged` to stop the correct process
-* Use `pm2 delete staged` to delete the correct process from pm2 process list
+### Connecting to AWS EC2 over `ssh`
 
-## Connecting to AWS EC2 over `ssh`
-
-In order to connect over ssh you need to configure the aws instance to know your `ip` or be on the FCB Chicago network.
+In order to connect over ssh, make sure that security group settings for your EC2 instance will allow your inbound connection over ssh.
 
 To add an ip you must do the following:
 
@@ -98,7 +100,7 @@ After that, go to the base directory of the site after cloning it and run the fo
 * prod
   * `ssh -i "<pemfile>" ubuntu@1.1.1.1`
 
-## Deploying
+### Deploying
 
 * `ssh` into server
 * `cd ./keystone4-universal-react`
@@ -144,6 +146,7 @@ There are several kinds of react components:
 * blocks - structural elements. Used to wrap elements in order to fit them on a page in a regular way
   * *e.g.,* floating content, spacer content
 * component - simple elements that render information and fire events (passed in by containers or parents)
+* inputs - inputs for use in forms. These are all fairly smart components.
 
 global, page and container components can have the following files for persisting state:
 
@@ -163,10 +166,10 @@ This project uses [atomic-scss](https://github.com/internetErik/atomic-scss) as 
   * The folder structure of the scss files should match the directory structure for react components
     * `both/global` => `public/scss/global`
     * `both/pages` => `public/scss/pages`
-    * `both/pages-registration` => `public/scss/pages-registration`
     * `both/containers` => `public/scss/containers`
     * `both/component` => `public/scss/component`
     * `both/blocks` => `public/scss/blocks`
+    * `both/inputs` => `public/scss/inputs`
     * `both/svg` => `public/scss/svg`
   * The CSS class for a component should be the component name converted from camel case to hyphen case
     *`HomePage` => `home-page`
@@ -184,7 +187,7 @@ This file exports a function (`populateData`) that takes a url and uses it to de
 
 #### Methods For Getting Data
 
-All functions used by `populateData` to lookup data must return a `Promise`. They must also take an object as a last argument. Any data fetched from mongo will be assigned to this object before the `Promise` resolves.
+All functions used by `populateData` to lookup data must return a `Promise`. They must also take an object as a first argument. Any data fetched from mongo will be assigned to this object before the `Promise` resolves.
 
 #### Getting More Data (On the `populateData` Function)
 
@@ -194,4 +197,4 @@ If you need to get more data out of mongo you'll need to add code to `populateDa
 
 ### Webpack Enhancements
 
-* Read sass variable files in with: https://www.npmjs.com/package/sass-variable-loader
+* Read sass variable files in with [sass-variable-loader](https://www.npmjs.com/package/sass-variable-loader). This would help us to have one place where we kept breakpoint values.

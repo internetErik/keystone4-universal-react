@@ -181,7 +181,7 @@ export default class ContactForm extends React.Component {
         </div>
         <div>
           <button
-            className={`contact-form__submit-button bd1-s-black p10 ${ formDisabled && 'bgc-black'}`}
+            className={`contact-form__submit-button bd1-s-black p10 ${ formDisabled && 'bgc-gray' }`}
             onClick={this.handleSubmit}
             {...(formDisabled ? { disabled : true } : {})}
           >

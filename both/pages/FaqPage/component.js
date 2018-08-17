@@ -43,7 +43,7 @@ export default class FaqPage extends React.Component {
             }
           ]}
         />
-        <div className="grid-container">
+        <div className="faq-page__content grid-container">
           <AccordionGroup accordionContent={faqs} />
         </div>
       </section>

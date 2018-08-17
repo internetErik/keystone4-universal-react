@@ -23,7 +23,7 @@ export default class HomePage extends React.Component {
             }
           ]}
         />
-        <div className="grid-container">
+        <div className="home-page__content grid-container">
           Hello World
         </div>
       </section>

@@ -9,7 +9,7 @@ exports = module.exports = (req, res) => {
   .then(() => res.json({ error : false }))
   .catch(() => res.json({ false : true }));
 
-  // Alternately, send an email
+  // Alternately, send an email - needs configuration for AWS SES
   // emailContactEnquiry(enquiry)
   // .then(() => res.json({ error : false }))
   // .catch(() => res.json({ false : true }));

@@ -25,7 +25,7 @@ export default class ContactPage extends React.Component {
             }
           ]}
         />
-        <div className="grid-container">
+        <div className="contact-page__content grid-container">
           <ContactForm />
         </div>
       </section>
