@@ -54,7 +54,7 @@ export default class Accordion extends React.Component {
     const { data: { id, headingMessage, open, children, subHeadingMessage } } = this.props;
     const { currentStyle } = this.state;
     return (
-    <div className={`accordion oh posr`}>
+    <div className={`accordion posr`}>
       <div
         ref={content => this.childElements = content}
         className="accordion__content-measure posa l150% w100%"
@@ -63,14 +63,14 @@ export default class Accordion extends React.Component {
       </div>
       <div
         onClick={this.toggleAccordion}
-        className={`accordion__header fz16 p10-0 bt1-s-lightgray curp pl20@md`}
+        className={`accordion__header p10-0 bt1-s-lightgray curp pl20@md`}
       >
         <div className="grid-container posr">
           <div className={`${open ? 'c-black' : ''}`}>
             {headingMessage}
           </div>
           {subHeadingMessage &&
-          <div className="span-9 span-10@md c-gray ffss">{subHeadingMessage}</div>
+          <div className="c-gray ffss">{subHeadingMessage}</div>
           }
           <span className={`posa center-vert r0 h24 w24 bgc-white round-element r16@lg`}>
             <span className={`posa center fw700 ${open ? 'dn' : '' }`}>+</span>

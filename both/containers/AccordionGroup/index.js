@@ -8,22 +8,23 @@ export default class AccordionGroup extends React.Component {
     super();
     const { accordionContent } = props;
     this.state = {
-      accordions: accordionContent
+      accordions : accordionContent
         ? accordionContent.map(d => (d.open = d.open || false, d))
         : [],
     };
   }
 
   static propTypes = {
-    className       : PropTypes.string,
-    accordionContent: PropTypes.arrayOf(
+    className        : PropTypes.string,
+    accordionContent : PropTypes.arrayOf(
       PropTypes.shape({
-        id             : PropTypes.number.isRequired,
+        id             : PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
+        headingMessage : PropTypes.string.isRequired,
         open           : PropTypes.bool.isRequired,
         children       : PropTypes.object.isRequired,
       })
     ).isRequired,
-    viewOne         : PropTypes.bool,
+    viewOne          : PropTypes.bool,
   };
 
   toggleAccordion = accordion => {
