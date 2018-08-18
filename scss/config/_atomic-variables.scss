@@ -9,6 +9,7 @@ $backgroundColor : (
     'lightgray': $color-lightgray,
     'gray': $color-gray,
     'black': $color-black,
+    'black-\\.5a': rgba($color-black, .5),
   )),
 );
 

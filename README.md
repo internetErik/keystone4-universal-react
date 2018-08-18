@@ -25,9 +25,7 @@ I recommend using [iTerm2](https://www.iterm2.com/) on mac, or [cmmdr](http://cm
 
 ## Build
 
-To build the project run `sudo npm run build` at the root of the project.
-
-**Note that we are using `sudo`. This is because there is a folder (`./build/data`) that gets created inside of `./build` that we need to delete, and need root in order to do it. If you don't want to use `sudo` for the build, then you must remove this folder yourself**
+To build the project run `npm run build` at the root of the project.
 
 This will:
 * delete and recreate the `./build-new` folder
@@ -71,8 +69,8 @@ To restart:
 * `sudo pm2 restart 0`
 
 To stop running:
-* Use `pm2 stop staged` to stop the correct process
-* Use `pm2 delete staged` to delete the correct process from pm2 process list
+* Use `pm2 stop 0` to stop the correct process
+* Use `pm2 delete 0` to delete the correct process from pm2 process list
 
 #### Database Logs
 
@@ -111,7 +109,7 @@ After that, go to the base directory of the site after cloning it and run the fo
 ### JavaScript
 
 * Use ES6+ where possible.
-* Prefer data transformation
+* Keep things close to data
 
 ### Files and Folders
 
@@ -120,6 +118,7 @@ There are a number of different kinds of components broken into different folder
 * blocks - these components have children that are passed in, and generally provide some display effect reused throughout the site.
 * components - these are components that take props and render - they don't have reducers
 * containers - these components are like normal components but smart, i.e., they may have reducers, or maintain the state of a ground of other components
+* inputs - smart components used for forms
 * global - these are like containers, but particularly are components that load everywhere on the site
 * pages - these are like containers, but are distinguished semantically because they represent pages (they are routed to)
 * svg - these are svgs. Props are passed in to control their display characteristics.

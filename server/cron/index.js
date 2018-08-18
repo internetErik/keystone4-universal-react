@@ -7,9 +7,7 @@ export const startCronJobs = () => {
   const chicagoTimezoneOffset = 300;
   const serverTimezoneOffset = (new Date()).getTimezoneOffset();
   const timezoneAdjustment = chicagoTimezoneOffset - serverTimezoneOffset;
-  let firstRunFlickr  = true;
-  let firstRunCourses = true;
-  let firstRunPerson  = true;
+  let firstRun  = true;
 
   // const someJob = () => {
   //   const d = new Date();
@@ -28,9 +26,10 @@ export const startCronJobs = () => {
   //         .then(someJob);
   //     }, interval);
 
-  //     if(runImmediately && firstRunCourses) {
-  //       firstRunCourses = false;
-  //       getCourseData();
+  //     if(runImmediately && firstRun) {
+  //       firstRun = false;
+  //       get
+  //       Data();
   //     }
   //   });
   // }
