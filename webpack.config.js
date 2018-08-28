@@ -49,12 +49,14 @@ let config = {
   module: {
     rules: [
       {
-        test: /\.(jsx|js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
           plugins: [
-            'transform-decorators-legacy',
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-proposal-class-properties',
+            ['@babel/plugin-proposal-decorators', { legacy : true }],
             ...(
               env === 'staged' || env === 'production'
                 ? ['transform-react-remove-prop-types']
@@ -62,7 +64,7 @@ let config = {
             )
           ],
           presets: [
-            ['env', {
+            ['@babel/preset-env', {
               'targets': {
                 'browsers': [
                   '>0.25%',
@@ -71,9 +73,7 @@ let config = {
                 ]
               }
             }],
-            'react',
-            'es2015',
-            'stage-2',
+            '@babel/preset-react',
           ],
         }
       },
