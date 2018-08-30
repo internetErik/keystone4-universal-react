@@ -10,7 +10,7 @@ import Header        from './global/Header';
 import Footer        from './global/Footer';
 import SiteBody      from './global/SiteBody';
 
-const mapStateToProps = state => (console.log(state.appReducer),{
+const mapStateToProps = state => ({
   lightboxConfig: state.appReducer.lightboxConfig,
 })
 
