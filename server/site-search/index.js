@@ -14,3 +14,5 @@ const fuseOptions = {
     "type"
   ]
 };
+
+// siteSearchCache.fuse = new Fuse(searchCache.data, fuseOptions);

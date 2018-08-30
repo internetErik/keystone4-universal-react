@@ -69,11 +69,12 @@ keystone.set('nav', {
   ],
 });
 
-// build cache
-initialCacheLoad();
-
-// start cron jobs
-startCronJobs();
-
 // Start Keystone to connect to your database and initialise the web server
 keystone.start();
+
+// build cache
+initialCacheLoad()
+.finally(() => {
+  // start cron jobs
+  startCronJobs();
+});

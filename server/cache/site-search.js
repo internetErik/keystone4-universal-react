@@ -1,9 +1,8 @@
 import keystone from 'keystone';
-import Fuse from 'fuse.js';
 
 export const siteSearchCache = {
   lastLoaded: new Date(),
-  data: [],
+  data: null,
 };
 
 const landingPagesToSearch = [
@@ -21,18 +20,19 @@ const landingPagesToSearch = [
   },
 ];
 
-export const loadSiteSearch = () => {
+export const loadSiteSearch = next => new Promise((resolve, reject) => {
   console.log("*** Initializing Site Search Cache ***");
   // overall site config
   siteSearchCache.lastLoaded = new Date();
-  const promises = landingPagesToSearch.map(page => new Promise((resolve, reject) => {
-    keystone.list(page.model).model.find()
-    .exec((err, results) => {
+  siteSearchCache.data = [];
+  const promises = landingPagesToSearch.map(({ model, path }) => new Promise((resolve, reject) => {
+    keystone.list(model).model.find()
+    .exec((err, result) => {
       if(result)
         siteSearchCache.data.push({
           name: result.title,
           meta: result.meta,
-          path: page.path,
+          path: path,
           type: 'landing-page',
         });
       resolve();
@@ -41,6 +41,10 @@ export const loadSiteSearch = () => {
 
   Promise.all(promises)
   .then(() => {
-    searchCache.fuse = new Fuse(searchCache.data, fuseOptions);
+    console.log("*** Finished Loading Site Search Cache ***");
+    resolve(siteSearchCache);
   })
-}
+  .catch(() => reject())
+
+  typeof(next) === 'function' && next();
+})
