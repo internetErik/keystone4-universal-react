@@ -11,6 +11,7 @@ const controllers = {
   /// APIs
   ///
   forms     : importRoutes('./api/forms'),
+  actions   : importRoutes('./api/actions'),
   // general
   admin     : importRoutes('./api/admin-commands'),
   page      : importRoutes('./api/page'),
@@ -32,7 +33,8 @@ exports = module.exports = app => {
    *****************************************
    *****************************************/
 
-   app.post('/api/contact', controllers.forms.contact);
+   app.post('/api/contact',     controllers.forms.contact);
+   app.post('/api/site-search', controllers.actions.siteSearch);
 
   // Page API Routes
   app.all('/api/page',   controllers.page.pageData); // home page on main site

@@ -6,15 +6,16 @@ export const initialCacheLoad = () => new Promise((resolve, reject) => {
   console.log(new Date(), '**** Loading cache ****');
 
   const promises = [
-    loadSiteConfiguration(),
     loadSiteSearch(),
   ];
 
-
-  Promise.all(promises)
+  loadSiteConfiguration()
   .then(() => {
-    console.log(new Date(), '**** Finished Loading cache ****');
-    resolve()
+    Promise.all(promises)
+    .then(() => {
+      console.log(new Date(), '**** Finished Loading cache ****');
+      resolve()
+    })
+    .catch(reject);
   })
-  .catch(reject);
 })
