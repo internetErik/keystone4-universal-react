@@ -1,6 +1,6 @@
 import keystone from 'keystone';
 const Types = keystone.Field.Types;
-import { loadSiteConfiguration } from '../cache/siteConfiguration';
+import { loadSiteConfiguration } from '../cache/site-configuration';
 
 const SiteConfiguration = new keystone.List('SiteConfiguration', {
   map: { name: 'title' },
@@ -12,6 +12,10 @@ const SiteConfiguration = new keystone.List('SiteConfiguration', {
 SiteConfiguration.add({
   title: { type: String, required: true },
   passwordProtected: { type: Types.Boolean, label: 'Password Protected' },
+},
+'Site Search',
+{
+  searchFuzziness : { type: Number, note: 'Between 1 and 0' },
 });
 
 SiteConfiguration.schema.post('save', loadSiteConfiguration);

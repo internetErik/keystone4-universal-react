@@ -15,7 +15,7 @@ let initialState = {
   currentActiveSection : '',
   currentNavSection    : '',
   mobileNavOpen        : false,
-  lightBoxConfig       : {},
+  lightboxConfig       : {},
 };
 
 // This is so we can load in the site configuration
@@ -55,10 +55,10 @@ const reducer = (state = initialState, action) => {
       window.scrollTo(0, 0);
       break;
     case OPEN_LIGHTBOX:
-      newState.lightBoxConfig = action.lightBoxConfig;
+      newState.lightboxConfig = action.lightboxConfig;
       break;
     case CLOSE_LIGHTBOX:
-      newState.lightBoxConfig = {};
+      newState.lightboxConfig = {};
       break;
     default: break;
   }

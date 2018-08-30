@@ -15,7 +15,7 @@ export default class HomePage extends React.Component {
 
   openLightbox = () => {
     const { openLightbox, closeLightbox } = this.props;
-    const lightBoxConfig = {
+    const lightboxConfig = {
       close: closeLightbox,
       open: true,
       children: (
@@ -25,7 +25,7 @@ export default class HomePage extends React.Component {
       ),
       backgroundClassName: 'bgc-black-.5a',
     }
-    openLightbox(lightBoxConfig);
+    openLightbox(lightboxConfig);
   }
 
   render() {

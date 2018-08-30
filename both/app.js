@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import renderRoutes from 'react-router-config/renderRoutes'
 
-import LightBox from './blocks/LightBox';
+import Lightbox from './blocks/Lightbox';
 import ErrorBoundary from './containers/ErrorBoundary';
 import Header        from './global/Header';
 import Footer        from './global/Footer';
 import SiteBody      from './global/SiteBody';
 
-const mapStateToProps = state => ({
-  lightBoxConfig: state.appReducer.lightBoxConfig,
+const mapStateToProps = state => (console.log(state.appReducer),{
+  lightboxConfig: state.appReducer.lightboxConfig,
 })
 
 @connect(mapStateToProps)
@@ -20,11 +20,11 @@ export default class App extends React.Component {
   static propTypes = {
     route          : PropTypes.object.isRequired,
     history        : PropTypes.object.isRequired,
-    lightBoxConfig : PropTypes.object.isRequired,
+    lightboxConfig : PropTypes.object.isRequired,
   };
 
   render() {
-    const { route, history, lightBoxConfig } = this.props;
+    const { route, history, lightboxConfig } = this.props;
 
     return(
     <ErrorBoundary>
@@ -34,9 +34,9 @@ export default class App extends React.Component {
           { renderRoutes(route.routes) }
         </SiteBody>
         <Footer className="posr z1" />
-        <LightBox
+        <Lightbox
           className="z3"
-          lightBoxConfig={lightBoxConfig}
+          lightboxConfig={lightboxConfig}
         />
       </section>
     </ErrorBoundary>

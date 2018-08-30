@@ -10,6 +10,7 @@ const FaqPage = new keystone.List('FaqPage', {
 
 FaqPage.add({
   title: { type: String, required: true },
+  meta: { type: String },
 });
 
 FaqPage.defaultColumns = 'title';

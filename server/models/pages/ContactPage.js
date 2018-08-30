@@ -10,6 +10,7 @@ const ContactPage = new keystone.List('ContactPage', {
 
 ContactPage.add({
   title: { type: String, required: true },
+  meta: { type: String },
 });
 
 ContactPage.defaultColumns = 'title';

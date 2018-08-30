@@ -43,11 +43,16 @@
     ],
     "plugins": [
       "@babel/plugin-syntax-dynamic-import",
-      "@babel/plugin-proposal-class-properties",
       [
         "@babel/plugin-proposal-decorators",
         {
           "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
         }
       ]
     ],
@@ -65,6 +70,7 @@
     "aws-sdk": "^2.141.0",
     "connect-mongo": "^2.0.0",
     "dotenv": "^2.0.0",
+    "fuse.js": "^3.2.1",
     "glob": "^7.1.2",
     "history": "^4.7.2",
     "keystone": "^4.0.0",

@@ -33,6 +33,7 @@ const HomePage = new keystone.List('HomePage', {
 
 HomePage.add({
   title: { type: String, required: true },
+  meta: { type: String },
 });
 
 HomePage.defaultColumns = 'title';

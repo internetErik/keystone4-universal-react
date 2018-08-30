@@ -4,7 +4,7 @@ import { getPageData } from './page-data';
 import { getFaqsData } from './faq';
 
 // cache
-import { siteConfigurationCache } from '../cache/siteConfiguration';
+import { siteConfigurationCache } from '../cache/site-configuration';
 
 /**
  * The function takes a url, and determines what functions will be required

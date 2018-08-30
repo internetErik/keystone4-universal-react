@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
  */
 const childClicked = target => target.classList.contains('light-box__children')
 
-const LightBox = ({ className, lightBoxConfig: { backgroundClassName, open, close, children }}) => (
+const Lightbox = ({ className, lightboxConfig: { backgroundClassName, open, close, children }}) => (
 open
 ? <div className={`light-box posf t0 l0 w100% h100% dib ${className || ''}`}>
     <div
@@ -26,9 +26,9 @@ open
 : <div></div>
 );
 
-LightBox.propTypes = {
+Lightbox.propTypes = {
   className      : PropTypes.string,
-  lightBoxConfig : PropTypes.object, // ToDo: describe shape?
+  lightboxConfig : PropTypes.object, // ToDo: describe shape?
 };
 
-export default LightBox;
+export default Lightbox;

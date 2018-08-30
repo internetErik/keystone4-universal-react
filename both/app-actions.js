@@ -31,9 +31,9 @@ export const closeMobileNavAction = () => ({
   type: CLOSE_MOBILE_NAVIGATION,
 })
 
-export const openLightboxAction = lightBoxConfig => ({
+export const openLightboxAction = lightboxConfig => ({
   type: OPEN_LIGHTBOX,
-  lightBoxConfig,
+  lightboxConfig,
 })
 
 export const closeLightboxAction = () => ({

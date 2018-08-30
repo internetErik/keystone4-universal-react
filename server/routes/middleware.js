@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import keystone from 'keystone';
-import { siteConfigurationCache } from '../cache/siteConfiguration';
+import { siteConfigurationCache } from '../cache/site-configuration';
 
 /**
   Initialises the standard view locals.
