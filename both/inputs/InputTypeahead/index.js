@@ -7,11 +7,12 @@ import InputText from '../../inputs/InputText';
 import debounce from '../../util/debounce';
 
 /**
- * [description]
- * @param  {[type]} ) [description]
- * @return {[type]}   [description]
+ * This function will have its this bound to the component. This is done so we
+ * can debounce the typeahead.
+ *
+ * Otherwise, this function submits a request and handles the result
  */
-function fetchData(state, props, setState) {
+function fetchData() {
   const { apiPath, requestBodyKey, responseLens, typeaheadResultCallback } = this.props;
   const { typeaheadFieldValue } = this.state;
   const options = {
@@ -72,40 +73,43 @@ export default class InputTypeahead extends React.Component {
     typeaheadResultsRenderer : PropTypes.func.isRequired,
     typeaheadResultCallback  : PropTypes.func,
     debounceDelay            : PropTypes.number,
-    setClearHandle           : PropTypes.func,
+    getClearHandle           : PropTypes.func,
   }
 
   // this function will be re-assigned later when the component mounts
   fetchData = () => {}
 
   componentDidMount() {
-    const { debounceDelay, setClearHandle } = this.props;
+    const { debounceDelay, getClearHandle } = this.props;
     // debounce the fetch data function
     this.fetchData = debounce.call(this, fetchData, debounceDelay || 100);
-    setClearHandle(() => this.setState({ typeaheadFieldValue : '', typeaheadResults : [] }));
+    if(getClearHandle)
+      getClearHandle(() => this.clearTypeahead());
   }
 
   /**
-   * [description]
-   * @return {[type]} [description]
+   * Track changes locally, and call the fetch method
    */
   getFieldChanged = change =>
-    this.setState({ ...change }, () => this.fetchData(this.state, this.props, this.setState))
+    this.setState({ ...change }, () => this.fetchData())
 
   /**
-   * [description]
-   * @return {[type]} [description]
+   * clears the input
+   */
+  clearTypeahead = () => this.setState({ typeaheadFieldValue : '', typeaheadResults : [] })
+
+  /**
+   * Pass out the dirty flag
    */
   setFieldDirty = () => this.props.setFieldDirty({[this.props.fieldName + 'Dirty']: true})
 
   /**
-   * [description]
-   * @param  {[type]} result [description]
-   * @return {[type]}        [description]
+   * Handles clicking on a result
+   * @param  {Object} result The data associated with the thing clicked on
    */
   selectResult = result => {
     const { fieldName, getFieldChanged } = this.props;
-    this.setState({ typeaheadFieldValue : '', typeaheadResults : [] });
+    this.clearTypeahead()
     getFieldChanged({ [fieldName + 'Value'] : result })
   }
 

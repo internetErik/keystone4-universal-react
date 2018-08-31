@@ -11,11 +11,9 @@ export default class SiteSearch extends React.Component {
     super();
     this.state = {
       searchResults : [],
-      clearHandle   : () => {},
+      clearHandle   : ()=>{},
     };
   }
-
-  getClearHandle = clearHandle => this.setState({ clearHandle });
 
   static contextTypes = {
     router: PropTypes.shape({
@@ -23,8 +21,26 @@ export default class SiteSearch extends React.Component {
     }),
   };
 
+  /**
+   * This gets a method from the inside of the typeahead that we can use to clear the input
+   *
+   * @param  {function} clearHandle function we can call to clear the typeahead
+   */
+  getClearHandle = clearHandle => this.setState({ clearHandle });
+
+  /**
+   * Get the list of values from the typeahead. We need these to handle a keyUp
+   * event for <enter>
+   *
+   * @param  {Array} options.result the list of results
+   */
   handleSearchResultsChanged = ({ result }) => this.setState({ searchResults : result })
 
+  /**
+   * When user presses enter, 'click' on the first entry
+   *
+   * @param  {Object} e The keyUp event
+   */
   handleKeyUp = e => {
     const { router: { history } } = this.context;
     const { searchResults, clearHandle } = this.state;
@@ -49,7 +65,7 @@ export default class SiteSearch extends React.Component {
         debounceDelay={300}
         apiPath="/api/site-search"
         requestBodyKey="query"
-        setClearHandle={this.getClearHandle}
+        getClearHandle={this.getClearHandle}
         typeaheadResultCallback={this.handleSearchResultsChanged}
         responseLens={response => [ ...response.results, ...response.defaultResults ]}
         typeaheadResultsRenderer={result => <a href={result.path}>{ result.name }</a>}
