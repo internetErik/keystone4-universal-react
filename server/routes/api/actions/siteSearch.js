@@ -5,7 +5,7 @@ const defaultResults = [];
 
 exports = module.exports = (req, res) => {
   const { query } = req.body;
-  console.log(query);
+
   const results = siteSearchCache.search(query);
 
   res.json({ results, defaultResults });

@@ -25,17 +25,17 @@ function fetchData(state, props, setState) {
   };
 
   fetch(apiPath, options)
-    .then(r => r.json())
-    .then(results => {
-      const typeaheadResults = responseLens(results);
-      this.setState({ typeaheadResults });
-      if(typeaheadResultCallback)
-        typeaheadResultCallback({
-          value  : typeaheadFieldValue,
-          result : typeaheadResults,
-        });
-    })
-    .catch(err => console.error('Error', err))
+  .then(r => r.json())
+  .then(results => {
+    const typeaheadResults = responseLens(results);
+    this.setState({ typeaheadResults });
+    if(typeaheadResultCallback)
+      typeaheadResultCallback({
+        value  : typeaheadFieldValue,
+        result : typeaheadResults,
+      });
+  })
+  .catch(err => console.error('Error', err))
 }
 
 export default class InputTypeahead extends React.Component {
@@ -72,15 +72,17 @@ export default class InputTypeahead extends React.Component {
     typeaheadResultsRenderer : PropTypes.func.isRequired,
     typeaheadResultCallback  : PropTypes.func,
     debounceDelay            : PropTypes.number,
+    setClearHandle           : PropTypes.func,
   }
 
   // this function will be re-assigned later when the component mounts
   fetchData = () => {}
 
   componentDidMount() {
-    const { debounceDelay } = this.props;
+    const { debounceDelay, setClearHandle } = this.props;
     // debounce the fetch data function
     this.fetchData = debounce.call(this, fetchData, debounceDelay || 100);
+    setClearHandle(() => this.setState({ typeaheadFieldValue : '', typeaheadResults : [] }));
   }
 
   /**
@@ -104,9 +106,7 @@ export default class InputTypeahead extends React.Component {
   selectResult = result => {
     const { fieldName, getFieldChanged } = this.props;
     this.setState({ typeaheadFieldValue : '', typeaheadResults : [] });
-    getFieldChanged({
-      [fieldName + 'Value']: result,
-    })
+    getFieldChanged({ [fieldName + 'Value'] : result })
   }
 
   render() {
@@ -134,7 +134,7 @@ export default class InputTypeahead extends React.Component {
             typeaheadResults.map((result, i) => (
             <div
               key={i}
-              className="input-typeahead__results-result bgc-almond:h"
+              className="input-typeahead__results-result"
               onClick={() => this.selectResult(result)}
             >
               { typeaheadResultsRenderer(result) }

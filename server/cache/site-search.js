@@ -5,7 +5,7 @@ import { siteConfigurationCache } from './site-configuration';
 
 const fuseOptions = {
   shouldSort: true,
-  threshold: siteConfigurationCache.data.searchFuzziness || 0.6,
+  threshold: 0.6,
   location: 0,
   distance: 1000,
   maxPatternLength: 32,
@@ -30,7 +30,7 @@ const landingPagesToSearch = [
   },
   {
     model: 'FaqPage',
-    path: '/faq',
+    path: '/faqs',
   },
   {
     model: 'ContactPage',
@@ -40,6 +40,8 @@ const landingPagesToSearch = [
 
 export const loadSiteSearch = next => new Promise((resolve, reject) => {
   console.log("*** Initializing Site Search Cache ***");
+
+  fuseOptions.threshold = siteConfigurationCache.data.searchFuzziness || 0.6;
 
   siteSearchCache.lastLoaded = new Date();
   siteSearchCache.data = [];
@@ -61,8 +63,12 @@ export const loadSiteSearch = next => new Promise((resolve, reject) => {
 
   Promise.all(promises)
   .then(() => {
+    // create lookup object
     const fuse = new Fuse(siteSearchCache.data, fuseOptions);
+
+    // bind the search method for fuse to cache object
     siteSearchCache.search = fuse.search.bind(fuse);
+
     console.log("*** Finished Loading Site Search Cache ***");
     resolve(siteSearchCache);
   })

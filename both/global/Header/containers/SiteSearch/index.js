@@ -3,76 +3,57 @@ import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch';
 
 import InputText from '../../../../inputs/InputText';
-
-const initialValues = {
-  queryValue : '',
-}
-
-const initialDirty = {
-  queryDirty : '',
-}
+import InputTypeahead from '../../../../inputs/InputTypeahead';
 
 export default class SiteSearch extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      values : {
-        ...initialValues,
-      }
+      searchResults : [],
+      clearHandle   : () => {},
     };
   }
 
-  handleValueChanged = change => this.setState({ values : { ...this.state.values, ...change } }, this.validateForm)
+  getClearHandle = clearHandle => this.setState({ clearHandle });
 
-  handleDirtyChanged = change => this.setState({ dirty : { ...this.state.dirty, ...change } })
+  static contextTypes = {
+    router: PropTypes.shape({
+      history: PropTypes.object.isRequired,
+    }),
+  };
 
-  submitQuery = e => {
-    e.preventDefault();
-    const { queryValue } = this.state.values;
+  handleSearchResultsChanged = ({ result }) => this.setState({ searchResults : result })
 
-    const options = {
-      credentials: 'include',
-      method: 'POST',
-      headers: {
-        'Accept'      : 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query : queryValue,
-      }),
-    };
-
-    fetch('/api/site-search', options)
-    .then(r => r.json())
-    .then(data => {
-      console.log(data);
-    })
-    .catch(data => {
-      console.log(data);
-    })
+  handleKeyUp = e => {
+    const { router: { history } } = this.context;
+    const { searchResults, clearHandle } = this.state;
+    if(e.keyCode === 13 && searchResults.length > 0) {
+      clearHandle();
+      history.push(searchResults[0].path);
+    }
   }
 
   render() {
-    const {
-      values : {
-        queryValue,
-      },
-    } = this.state;
     const { className } = this.props;
 
     return (
-    <div className={`site-search ${className || ''}`}>
-      <InputText
+    <div className={`site-search dib ${className || ''}`}>
+      <InputTypeahead
+        className="site-search__input w200"
         fieldName="query"
-        fieldValue={queryValue}
-        getFieldChanged={this.handleValueChanged}
-        setFieldDirty={this.handleDirtyChanged}
-        onKeyUp={e => e.keyCode === 13 && this.submitQuery(e)}
+        getFieldChanged={()=>{}}
+        setFieldDirty={()=>{}}
+        autocomplete="off"
+        onKeyUp={this.handleKeyUp}
+        debounceDelay={300}
+        apiPath="/api/site-search"
+        requestBodyKey="query"
+        setClearHandle={this.getClearHandle}
+        typeaheadResultCallback={this.handleSearchResultsChanged}
+        responseLens={response => [ ...response.results, ...response.defaultResults ]}
+        typeaheadResultsRenderer={result => <a href={result.path}>{ result.name }</a>}
       />
-      <button>
-        Submit
-      </button>
     </div>
     )
   }
