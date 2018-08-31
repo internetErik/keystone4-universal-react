@@ -57,11 +57,10 @@
   "license": "ISC",
   "dependencies": {
     "atomic-scss": "^3.0.1",
-    "aws-sdk": "^2.141.0",
+    "aws-sdk": "^2.307.0",
     "connect-mongo": "^2.0.0",
     "dotenv": "^2.0.0",
     "fuse.js": "^3.2.1",
-    "glob": "^7.1.2",
     "history": "^4.7.2",
     "keystone": "^4.0.0",
     "keystone-storage-adapter-s3": "^2.0.0",

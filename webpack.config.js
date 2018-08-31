@@ -1,6 +1,5 @@
 require('dotenv').config();
 const webpack = require('webpack');
-const glob = require('glob-all');
 const path = require('path');
 const fs = require('fs');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;

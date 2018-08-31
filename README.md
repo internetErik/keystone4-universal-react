@@ -194,6 +194,10 @@ If you need to get more data out of mongo you'll need to add code to `populateDa
 
 ## ToDos
 
+### Babel 7
+
+This is waiting on keystone support (I think)
+
 ### Webpack Enhancements
 
 * Read sass variable files in with [sass-variable-loader](https://www.npmjs.com/package/sass-variable-loader). This would help us to have one place where we kept breakpoint values.
