@@ -81,10 +81,6 @@ let config = {
         loader: 'file-loader',
       },
       {
-        test: /\.html$/,
-        loader: 'html-loader',
-      },
-      {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
