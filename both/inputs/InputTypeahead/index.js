@@ -72,8 +72,8 @@ export default class InputTypeahead extends React.Component {
     responseLens             : PropTypes.func.isRequired,
     typeaheadResultsRenderer : PropTypes.func.isRequired,
     typeaheadResultCallback  : PropTypes.func,
-    debounceDelay            : PropTypes.number,
     getClearHandle           : PropTypes.func,
+    debounceDelay            : PropTypes.number,
   }
 
   // this function will be re-assigned later when the component mounts
@@ -83,6 +83,8 @@ export default class InputTypeahead extends React.Component {
     const { debounceDelay, getClearHandle } = this.props;
     // debounce the fetch data function
     this.fetchData = debounce.call(this, fetchData, debounceDelay || 100);
+
+    // if they provided a method to get a function to clear from outside this component
     if(getClearHandle)
       getClearHandle(() => this.clearTypeahead());
   }
@@ -109,8 +111,8 @@ export default class InputTypeahead extends React.Component {
    */
   selectResult = result => {
     const { fieldName, getFieldChanged } = this.props;
-    this.clearTypeahead()
-    getFieldChanged({ [fieldName + 'Value'] : result })
+    this.clearTypeahead();
+    getFieldChanged({ [fieldName + 'Value'] : result });
   }
 
   render() {

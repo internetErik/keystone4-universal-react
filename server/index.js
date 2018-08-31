@@ -30,7 +30,8 @@ if(process.env.NODE_ENV === 'production') {
   // keystoneInit['ssl'] = 'force';
   // keystoneInit['ssl key'] = process.env.SSL_KEY || '/etc/letsencrypt/live/test.org/privkey.pem';
   // keystoneInit['ssl cert'] = process.env.SSL_CERT || '/etc/letsencrypt/live/test.org/fullchain.pem';
-  // This automatic letsencrypt isn't working right now
+
+  // This automatic letsencrypt isn't working right now for me
   // keystoneInit['letsencrypt'] = {
   //   email: 'email@test.com',
   //   domains: ['www.test.com', 'test.com'],
@@ -66,7 +67,11 @@ keystone.set('nav', {
   ],
   'data' : [
     'faqs',
+    'media-items',
+    'contact-enquiries',
   ],
+  'configuration' : [ 'site-configurations' ],
+  'users' : [ 'users' ],
 });
 
 // Start Keystone to connect to your database and initialise the web server
