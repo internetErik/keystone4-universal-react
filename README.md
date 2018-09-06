@@ -198,6 +198,8 @@ If you need to get more data out of mongo you'll need to add code to `populateDa
 
 This is waiting on keystone support (I think)
 
+### Is `react-router-config` still necessary?
+
 ### Webpack Enhancements
 
 * Read sass variable files in with [sass-variable-loader](https://www.npmjs.com/package/sass-variable-loader). This would help us to have one place where we kept breakpoint values.
