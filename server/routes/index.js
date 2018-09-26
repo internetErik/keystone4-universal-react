@@ -1,6 +1,10 @@
 import keystone from 'keystone';
 import redirectData from './redirect-data';
 import { initLocals } from './middleware';
+import { routeAuthFactory } from './util/auth';
+
+const authOn = process.env.SIMPLE_AUTH_ON === 'true';
+const authenticatedRoute = routeAuthFactory(authOn);
 
 const importRoutes = keystone.importer(__dirname);
 
@@ -10,6 +14,7 @@ const controllers = {
   ///
   /// APIs
   ///
+  login     : importRoutes('./api/login'),
   forms     : importRoutes('./api/forms'),
   actions   : importRoutes('./api/actions'),
   // general
@@ -33,18 +38,26 @@ exports = module.exports = app => {
    *****************************************
    *****************************************/
 
-   app.post('/api/contact',     controllers.forms.contact);
-   app.post('/api/site-search', controllers.actions.siteSearch);
+  if(authOn) {
+    app.post('/api/login',  controllers.login.loginAction);
+    app.all('/api/logout', controllers.login.logoutAction);
+
+    // login page view route
+    app.get('/login', controllers.view.login)
+  }
+
+  app.post('/api/contact',     authenticatedRoute(controllers.forms.contact));
+  app.post('/api/site-search', authenticatedRoute(controllers.actions.siteSearch));
 
   // Page API Routes
-  app.all('/api/page',   controllers.page.pageData); // home page on main site
-  app.all('/api/page/*', controllers.page.pageData); // all other pages
+  app.all('/api/page',   authenticatedRoute(controllers.page.pageData)); // home page on main site
+  app.all('/api/page/*', authenticatedRoute(controllers.page.pageData)); // all other pages
 
   ///
   /// View routes
   ///
 
   // main site
-  app.get('*', controllers.view.main);
+  app.get('*', authenticatedRoute(controllers.view.main, '/login'));
 };
 

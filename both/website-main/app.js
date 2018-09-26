@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import renderRoutes from 'react-router-config/renderRoutes'
 
-import Lightbox from './blocks/Lightbox';
-import ErrorBoundary from './containers/ErrorBoundary';
-import Header        from './global/Header';
-import Footer        from './global/Footer';
-import SiteBody      from './global/SiteBody';
+import Lightbox from '../blocks/Lightbox';
+import ErrorBoundary from '../containers/ErrorBoundary';
+import Header        from '../global/Header';
+import Footer        from '../global/Footer';
+import SiteBody      from '../global/SiteBody';
 
 const mapStateToProps = state => ({
   lightboxConfig: state.appReducer.lightboxConfig,

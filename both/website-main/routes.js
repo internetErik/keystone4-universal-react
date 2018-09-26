@@ -1,10 +1,10 @@
 import React from 'react';
 
 import App from './app';
-import HomePage     from './pages/HomePage';
-import FaqPage      from './pages/FaqPage';
-import ContactPage  from './pages/ContactPage';
-import NotFoundPage from './pages/NotFoundPage';
+import HomePage     from '../pages/HomePage';
+import FaqPage      from '../pages/FaqPage';
+import ContactPage  from '../pages/ContactPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 const routes = [{
   component: App,

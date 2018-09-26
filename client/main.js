@@ -7,9 +7,9 @@ import { browserHistory } from 'react-router';
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
-import { setAppInitialState } from '../both/app-reducer';
-import routes from '../both/routes';
-import reducers from '../both/reducers';
+import { setAppInitialState } from '../both/website-main/app-reducer';
+import routes from '../both/website-main/routes';
+import reducers from '../both/website-main/reducers';
 
 // bring in css
 import '../scss/site.scss';

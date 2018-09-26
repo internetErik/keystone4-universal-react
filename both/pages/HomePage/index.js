@@ -7,7 +7,7 @@ import {
   pageDataLoadFailureAction,
   openLightboxAction,
   closeLightboxAction,
-} from '../../app-actions';
+} from '../../website-main/app-actions';
 
 import { apiRequest } from '../../util/api-request';
 

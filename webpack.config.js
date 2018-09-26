@@ -21,6 +21,7 @@ let config = {
   mode: (env === 'dev') ? 'development' : 'production',
   entry: {
     main      : './client/main.js',
+    login     : './client/login.js',
     vendor    : ['react', 'react-dom', 'react-router', 'react-redux', 'react-router-dom', 'redux', 'redux-connect', 'react-router-config', 'whatwg-fetch'],
   },
   output: {

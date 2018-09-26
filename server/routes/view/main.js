@@ -7,10 +7,11 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import { parse as parseUrl } from 'url';
 import Helmet from 'react-helmet';
 
-import routes from '../../../both/routes';
+import routes                 from '../../../both/website-main/routes';
+import reducers               from '../../../both/website-main/reducers';
+import { setAppInitialState } from '../../../both/website-main/app-reducer';
+
 import renderLayout from '../../views/layout';
-import { setAppInitialState } from '../../../both/app-reducer';
-import reducers from '../../../both/reducers';
 import populateData from '../../data';
 
 exports = module.exports = (request, response) => {
@@ -49,7 +50,7 @@ exports = module.exports = (request, response) => {
       const head = Helmet.renderStatic();
 
       // render the page, and send it to the client
-      response.send(renderLayout(head, html, '', store.getState(), !!(request.user && request.user.isAdmin)))
+      response.send(renderLayout(head, html, 'main', store.getState(), !!(request.user && request.user.isAdmin)))
 
     })
     .catch(err => {

@@ -5,7 +5,7 @@ import loadable from 'loadable-components'
 import {
   pageDataLoadSuccessAction,
   pageDataLoadFailureAction,
-} from '../../app-actions';
+} from '../../website-main/app-actions';
 
 import { apiRequest } from '../../util/api-request';
 

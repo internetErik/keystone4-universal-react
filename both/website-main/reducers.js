@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { reducer as reduxAsyncConnect } from 'redux-connect';
 
 import appReducer from './app-reducer';
-import { faqPageReducer } from './pages/FaqPage/reducer';
+import { faqPageReducer } from '../pages/FaqPage/reducer';
 
 export default combineReducers({
   appReducer,

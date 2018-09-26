@@ -30,12 +30,12 @@ const generateScriptSrc = scriptName => (
  *
  * @param  {object} head         All the data for the head of the site
  * @param  {string} app          The rendered react application
- * @param  {string} pageScripts  The scripts that should be loading onto the page
+ * @param  {string} scriptName   The name of the javascript file we are loading
  * @param  {object} initialState The initial state of the redux store
  * @param  {bool}   hasUser      True if there is a user logged in to keystone
  * @return {string}              A string that is returned through the http(s) response to the client
  */
-const renderLayout = (head, app, pageScripts, initialState, hasUser) => `
+const renderLayout = (head, app, scriptName, initialState, hasUser) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,8 +58,7 @@ const renderLayout = (head, app, pageScripts, initialState, hasUser) => `
   window.__USER = ${ hasUser };
   </script>
   <script src="${generateScriptSrc('vendor')}"></script>
-  <script src="${generateScriptSrc('main')}"></script>
-  ${ pageScripts }
+  <script src="${generateScriptSrc(scriptName)}"></script>
 </body>
 </html>
 `;
