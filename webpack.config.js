@@ -7,12 +7,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin")
 const S3Plugin = require('webpack-s3-plugin');
 
-const PATHS = {
-  index: path.join(__dirname, 'server'),
-  app  : path.join(__dirname, 'client'),
-  both : path.join(__dirname, 'both'),
-};
-
 const env = process.env.NODE_ENV || 'dev';
 
 console.log('NODE_ENV =', env);
@@ -121,6 +115,7 @@ if (env === 'staged' || env === 'production') {
       DEBUG: false,
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    // Don't use this if you aren't serving the files up as gzip
     new CompressionPlugin({
       include: /.*\.(css|js)/,
       asset: '[file]',

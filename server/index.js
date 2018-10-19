@@ -13,7 +13,6 @@ let keystoneInit = {
   'brand': 'Keystone4 Universal React',
 
   'static': '../public',
-  'view engine': 'hbs',
   'mongo': process.env.MONGO_URI || 'mongodb://localhost/keystone4-universal-react',
 
   'cookie secret': process.env.COOKIE_SECRET,

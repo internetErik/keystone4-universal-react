@@ -17,8 +17,8 @@ const initialValues = {
 }
 
 const initialDirty = {
-  subjectDirty : '',
-  messageDirty : '',
+  subjectDirty : false,
+  messageDirty : false,
 }
 
 const initialErrors = {
