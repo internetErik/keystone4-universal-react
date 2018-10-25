@@ -1,6 +1,6 @@
 import { WINDOW_RESIZED } from './global-constants';
 
-import { isBrowser } from './util/enironment-detection';
+import { isBrowser } from './util/environment-detection';
 
 const initialState = {
   windowSize : {
