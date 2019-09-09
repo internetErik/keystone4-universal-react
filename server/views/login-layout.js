@@ -1,5 +1,6 @@
+import { getSiteConfigurationCache } from '../cache/site-configuration';
 
-const CDN_URL = process.env.CLOUDFRONT_BASE_URL;
+const CDN_URL = process.env.ROOT_ASSET_URL;
 const NODE_ENV = process.env.NODE_ENV;
 const HASH = process.env.WEBPACK_HASH;
 
@@ -30,12 +31,11 @@ const generateScriptSrc = scriptName => (
  *
  * @param  {object} head         All the data for the head of the site
  * @param  {string} app          The rendered react application
- * @param  {string} scriptName   The name of the javascript file we are loading
  * @param  {object} initialState The initial state of the redux store
  * @param  {bool}   hasUser      True if there is a user logged in to keystone
  * @return {string}              A string that is returned through the http(s) response to the client
  */
-const renderLayout = (head, app, scriptName, initialState, extractor, hasUser) => `
+const renderLayout = (head, app, initialState, hasUser) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,24 +43,22 @@ const renderLayout = (head, app, scriptName, initialState, extractor, hasUser) =
   ${ head.meta.toString() }
   ${ head.link.toString() }
   ${ head.title.toString() }
+  <link rel="stylesheet" href="https://use.typekit.net/tpu5yos.css">
+  <link rel="stylesheet" href="${ generateStyleHref() }" />
   <script>
     var isIE = (typeof Object.assign === 'undefined' || window.navigator.userAgent.indexOf("Edge") > -1);
     document.querySelector('html').classList.add(isIE ? 'not-ie' : 'is-ie');
   </script>
-  ${ extractor.getLinkTags() }
-  <link rel="stylesheet" href="${ generateStyleHref() }" />
 </head>
 <body style="overflow-x: hidden;">
-  <div id="app">${ app }</div>
+  <div id="app">${app}</div>
   <script>
   window.__INITIAL_STATE = ${ JSON.stringify(initialState) };
   window.__ENV = "${ NODE_ENV }";
-  window.__CLOUDFRONT_BASE_URL = "${ CDN_URL }";
-  window.__USER = ${ hasUser };
+  window.__ROOT_ASSET_URL = "${ CDN_URL }"
   </script>
-  ${ extractor.getScriptTags() }
   <script src="${ generateScriptSrc('vendor') }"></script>
-  <script src="${ generateScriptSrc(scriptName) }"></script>
+  <script src="${ generateScriptSrc('login') }"></script>
 </body>
 </html>
 `;

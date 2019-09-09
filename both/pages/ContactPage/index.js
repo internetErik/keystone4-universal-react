@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { asyncConnect } from 'redux-connect'
-import loadable from 'loadable-components'
+import loadable from '@loadable/component';
 
 import {
   pageDataLoadSuccessAction,

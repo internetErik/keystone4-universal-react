@@ -18,7 +18,7 @@ export const initLocals = (req, res, next) => {
 
   // if we are on the staged site, then password protect site
   if(siteConfigurationCache.data.passwordProtected && !req.user) {
-    res.redirect(301, '/keystone');
+    res.redirect(302, '/keystone');
   }
 
   next();

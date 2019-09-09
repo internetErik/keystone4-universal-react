@@ -8,7 +8,7 @@ import {
   OPEN_LIGHTBOX,
   CLOSE_LIGHTBOX,
 } from './app-constants';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 let initialState = {
   pageData             : {},

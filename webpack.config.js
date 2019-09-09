@@ -6,6 +6,13 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin")
 const S3Plugin = require('webpack-s3-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin')
+
+const PATHS = {
+  index: path.join(__dirname, 'server'),
+  app  : path.join(__dirname, 'client'),
+  both : path.join(__dirname, 'both'),
+};
 
 const env = process.env.NODE_ENV || 'dev';
 
@@ -16,13 +23,13 @@ let config = {
   entry: {
     main      : './client/main.js',
     login     : './client/login.js',
-    vendor    : ['react', 'react-dom', 'react-router', 'react-redux', 'react-router-dom', 'redux', 'redux-connect', 'react-router-config', 'whatwg-fetch'],
+    vendor    : ['react', 'react-dom', 'react-router', 'react-redux', 'react-router-dom', 'redux', 'connected-react-router', 'redux-connect', 'redux-actions', 'react-router-config', 'whatwg-fetch', 'history'],
   },
   output: {
     path: __dirname + '/public',
     publicPath: (
-        (env === 'staged')     ? process.env.CLOUDFRONT_BASE_URL + 'assets/staged/'
-      : (env === 'production') ? process.env.CLOUDFRONT_BASE_URL + 'assets/'
+        (env === 'staged')     ? process.env.ROOT_ASSET_URL + 'assets/staged/'
+      : (env === 'production') ? process.env.ROOT_ASSET_URL + 'assets/'
       : '/'
       ),
     filename: (env === 'dev') ? '[name].js' : '[name]-[hash].min.js',
@@ -32,8 +39,8 @@ let config = {
       cacheGroups: {
         vendor: {
           chunks: 'initial',
-          name: 'vendor',
-          test: 'vendor',
+          name: 'vender',
+          test: 'vender',
           enforce: true
         },
       }
@@ -48,7 +55,15 @@ let config = {
         loader: 'babel-loader',
         query: {
           plugins: [
-            'transform-decorators-legacy',
+            ['@babel/plugin-proposal-decorators', { legacy : true }],
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-syntax-import-meta',
+            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-proposal-json-strings',
+            '@babel/plugin-proposal-function-sent',
+            '@babel/plugin-proposal-export-namespace-from',
+            '@babel/plugin-proposal-numeric-separator',
+            '@babel/plugin-proposal-throw-expressions',
             ...(
               env === 'staged' || env === 'production'
                 ? ['transform-react-remove-prop-types']
@@ -56,18 +71,19 @@ let config = {
             )
           ],
           presets: [
-            ['env', {
-              'targets': {
-                'browsers': [
-                  '>0.25%',
-                  'not ie 11',
-                  'not op_mini all',
-                ]
-              }
-            }],
-            'react',
-            'es2015',
-            'stage-2',
+            [
+              '@babel/preset-env',
+              {
+                modules: false,
+                loose: true,
+                targets: {
+                  browsers: ['>0.25%', 'not ie 11', 'not op_mini all']
+                },
+                useBuiltIns: 'usage',
+                corejs: 3,
+              },
+            ],
+            '@babel/preset-react',
           ],
         }
       },
@@ -89,6 +105,7 @@ let config = {
     new MiniCssExtractPlugin({
       filename: (env === 'dev') ? 'styles.css' : 'styles-[hash].css',
     }),
+    new LoadablePlugin({ writeToDisk : true }),
     // new BundleAnalyzerPlugin(),
   ]
 };
@@ -97,7 +114,7 @@ if(env === 'dev') {
   config.devtool = 'source-map';
 }
 
-if (env === 'staged' || env === 'production') {
+if(env === 'staged' || env === 'production') {
   config.devtool = 'nosources-source-map';
 
   config.plugins.push(
@@ -115,10 +132,9 @@ if (env === 'staged' || env === 'production') {
       DEBUG: false,
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    // Don't use this if you aren't serving the files up as gzip
     new CompressionPlugin({
-      include: /.*\.(css|js)/,
-      asset: '[file]',
+      include: /.*\.(css|js)$/,
+      filename: '[file]',
     }),
     // This is a plugin to write to the .env file
     function () {

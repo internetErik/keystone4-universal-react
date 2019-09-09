@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+let updateHeight = ()=>{}
+
 export default class Accordion extends React.Component {
 
   constructor() {
@@ -21,10 +23,12 @@ export default class Accordion extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.resizeHandler)
     this.resizeHandler();
+    updateHeight = this.updateHeight;
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateHeight();
+  static getDerivedStateFromProps(props, state) {
+    let currentStyle = updateHeight();
+    return { ...state, currentStyle };
   }
 
   componentWillUnmount() {
@@ -34,7 +38,8 @@ export default class Accordion extends React.Component {
   resizeHandler = ()=> {
     this.height = this.childElements.getBoundingClientRect().height;
     this.props.data.height = this.height;
-    this.updateHeight();
+    let currentStyle = this.updateHeight();
+    this.setState({ currentStyle })
   }
 
   updateHeight = () => {
@@ -42,7 +47,7 @@ export default class Accordion extends React.Component {
     const currentStyle = (open)
       ? { height: `${height}px` }
       : { height: '0'};
-    this.setState({ currentStyle });
+    return currentStyle;
   }
 
   toggleAccordion = () => {

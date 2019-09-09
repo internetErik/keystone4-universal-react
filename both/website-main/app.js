@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import renderRoutes from 'react-router-config/renderRoutes'
+import { renderRoutes } from 'react-router-config';
 
 import Lightbox from '../blocks/Lightbox';
 import ErrorBoundary from '../containers/ErrorBoundary';

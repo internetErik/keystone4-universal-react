@@ -11,7 +11,7 @@ export const routeAuthFactory = authenticationOn => (
         controller(req, res);
       else {
         if(redirectPath)
-          res.redirect(301, redirectPath);
+          res.redirect(302, redirectPath);
         else
           res.json({ error : true });
         return;

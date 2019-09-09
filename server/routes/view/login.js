@@ -4,13 +4,13 @@ import Helmet from 'react-helmet';
 
 import AppLogin from '../../../both/website-login/app-login';
 
-import renderLayout from '../../views/layout';
+import renderLayout from '../../views/login-layout';
 
 exports = module.exports = (request, response) => {
 
   // handle redirect if we aren't logged in
   if(request.session.loggedIn) {
-    response.redirect(301, '/');
+    response.redirect(302, '/');
     return;
   }
 

@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 import { reducer as reduxAsyncConnect } from 'redux-connect';
+import { connectRouter } from 'connected-react-router'
 
 import globalReducer from '../global-reducer';
 import appReducer from './app-reducer';
 import { faqPageReducer } from '../pages/FaqPage/reducer';
+import { isBrowser } from '../util/environment-detection';
 
-export default combineReducers({
+export const createRootReducer = history => combineReducers({
+  ...(isBrowser ? { router: connectRouter(history) } : {}),
   globalReducer,
   appReducer,
   faqPageReducer,
-  routing: routerReducer,
   reduxAsyncConnect,// must be last
 });

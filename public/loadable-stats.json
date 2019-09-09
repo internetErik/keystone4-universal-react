@@ -1,0 +1,347 @@
+{
+  "errors": [],
+  "warnings": [],
+  "version": "4.39.3",
+  "hash": "f62f74b2e491d2a0e082",
+  "publicPath": "/",
+  "outputPath": "/Users/erik/projects/keystone4-universal-react-dev/public",
+  "assetsByChunkName": {
+    "contact-page": [
+      "contact-page.js",
+      "contact-page.js.map"
+    ],
+    "faq-page": [
+      "faq-page.js",
+      "faq-page.js.map"
+    ],
+    "home-page": [
+      "home-page.js",
+      "home-page.js.map"
+    ],
+    "login": [
+      "styles.css",
+      "login.js",
+      "styles.css.map",
+      "login.js.map"
+    ],
+    "main": [
+      "styles.css",
+      "main.js",
+      "styles.css.map",
+      "main.js.map"
+    ],
+    "vendor": [
+      "vendor.js",
+      "vendor.js.map"
+    ],
+    "vendors~contact-page": [
+      "vendors~contact-page.js",
+      "vendors~contact-page.js.map"
+    ]
+  },
+  "assets": [
+    {
+      "name": "contact-page.js",
+      "size": 25742,
+      "chunks": [
+        "contact-page"
+      ],
+      "chunkNames": [
+        "contact-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "contact-page.js.map",
+      "size": 17236,
+      "chunks": [
+        "contact-page"
+      ],
+      "chunkNames": [
+        "contact-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "faq-page.js",
+      "size": 17019,
+      "chunks": [
+        "faq-page"
+      ],
+      "chunkNames": [
+        "faq-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "faq-page.js.map",
+      "size": 11735,
+      "chunks": [
+        "faq-page"
+      ],
+      "chunkNames": [
+        "faq-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "home-page.js",
+      "size": 6057,
+      "chunks": [
+        "home-page"
+      ],
+      "chunkNames": [
+        "home-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "home-page.js.map",
+      "size": 3043,
+      "chunks": [
+        "home-page"
+      ],
+      "chunkNames": [
+        "home-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "login.js",
+      "size": 1166715,
+      "chunks": [
+        "login"
+      ],
+      "chunkNames": [
+        "login"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "login.js.map",
+      "size": 1325098,
+      "chunks": [
+        "login"
+      ],
+      "chunkNames": [
+        "login"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "main.js",
+      "size": 1726126,
+      "chunks": [
+        "main"
+      ],
+      "chunkNames": [
+        "main"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "main.js.map",
+      "size": 1799392,
+      "chunks": [
+        "main"
+      ],
+      "chunkNames": [
+        "main"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "styles.css",
+      "size": 283170,
+      "chunks": [
+        "login",
+        "main"
+      ],
+      "chunkNames": [
+        "login",
+        "main"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "styles.css.map",
+      "size": 87,
+      "chunks": [
+        "login",
+        "main"
+      ],
+      "chunkNames": [
+        "login",
+        "main"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "vendor.js",
+      "size": 1439426,
+      "chunks": [
+        "vendor"
+      ],
+      "chunkNames": [
+        "vendor"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "vendor.js.map",
+      "size": 1568058,
+      "chunks": [
+        "vendor"
+      ],
+      "chunkNames": [
+        "vendor"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "vendors~contact-page.js",
+      "size": 28892,
+      "chunks": [
+        "vendors~contact-page"
+      ],
+      "chunkNames": [
+        "vendors~contact-page"
+      ],
+      "emitted": false
+    },
+    {
+      "name": "vendors~contact-page.js.map",
+      "size": 24239,
+      "chunks": [
+        "vendors~contact-page"
+      ],
+      "chunkNames": [
+        "vendors~contact-page"
+      ],
+      "emitted": false
+    }
+  ],
+  "filteredAssets": 0,
+  "entrypoints": {
+    "main": {
+      "chunks": [
+        "main"
+      ],
+      "assets": [
+        "styles.css",
+        "main.js",
+        "styles.css.map",
+        "main.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "login": {
+      "chunks": [
+        "login"
+      ],
+      "assets": [
+        "styles.css",
+        "login.js",
+        "styles.css.map",
+        "login.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "vendor": {
+      "chunks": [
+        "vendor"
+      ],
+      "assets": [
+        "vendor.js",
+        "vendor.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "namedChunkGroups": {
+    "main": {
+      "chunks": [
+        "main"
+      ],
+      "assets": [
+        "styles.css",
+        "main.js",
+        "styles.css.map",
+        "main.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "login": {
+      "chunks": [
+        "login"
+      ],
+      "assets": [
+        "styles.css",
+        "login.js",
+        "styles.css.map",
+        "login.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "vendor": {
+      "chunks": [
+        "vendor"
+      ],
+      "assets": [
+        "vendor.js",
+        "vendor.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "home-page": {
+      "chunks": [
+        "home-page"
+      ],
+      "assets": [
+        "home-page.js",
+        "home-page.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "faq-page": {
+      "chunks": [
+        "faq-page"
+      ],
+      "assets": [
+        "faq-page.js",
+        "faq-page.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "contact-page": {
+      "chunks": [
+        "vendors~contact-page",
+        "contact-page"
+      ],
+      "assets": [
+        "vendors~contact-page.js",
+        "vendors~contact-page.js.map",
+        "contact-page.js",
+        "contact-page.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 5,
+      "debug": false
+    }
+  },
+  "children": []
+}

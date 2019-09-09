@@ -14,6 +14,18 @@ body {
   max-width: $width-wrapper;
   margin: 0 auto;
   padding: 0 10px;
+
+  @media all and (max-width: $bp-lg) {
+    &.grid-container--full-lg {
+      padding: 0;
+    }
+  }
+
+  @media all and (max-width: $bp-md) {
+    &.grid-container--full-md {
+      padding: 0;
+    }
+  }
 }
 
 button {
