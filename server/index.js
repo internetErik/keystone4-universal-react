@@ -1,84 +1,46 @@
 require('dotenv').config();
-// Require keystone
-import keystone from 'keystone';
-import { startCronJobs } from './cron';
-import { initialCacheLoad } from './cache';
 
-global.__ENV = process.env.NODE_ENV;
+import { Keystone }             from '@keystonejs/keystone';
+import { PasswordAuthStrategy } from '@keystonejs/auth-password';
+import { MongooseAdapter }      from '@keystonejs/adapter-mongoose';
+import { GraphQLApp }           from '@keystonejs/app-graphql';
+import { AdminUIApp }           from '@keystonejs/app-admin-ui';
+
+import { startCronJobs }    from './cron';
+import { initialCacheLoad } from './cache';
+import { setupModels }      from './models';
 
 process.on('unhandledRejection', err => console.error('Unhandled rejection:', err))
 
-let keystoneInit = {
-  'name': 'Keystone4 Universal React',
-  'brand': 'Keystone4 Universal React',
+global.__ENV = process.env.NODE_ENV;
+const PROJECT_NAME = 'keystone5-universal-react';
 
-  'static': '../public',
-  'mongo': process.env.MONGO_URI || 'mongodb://localhost/keystone4-universal-react',
-
-  'cookie secret': process.env.COOKIE_SECRET,
-  'auto update': true,
-  'session': true,
-  'session store': 'mongo',
-  'auth': true,
-  'user model': 'User',
-  'port': process.env.PORT || 3000,
-};
-
-if(process.env.NODE_ENV === 'production') {
-  // keystoneInit['ssl port'] = process.env.SSL_PORT || 443;
-  // keystoneInit['ssl'] = 'force';
-  // keystoneInit['ssl key'] = process.env.SSL_KEY || '/etc/letsencrypt/live/test.org/privkey.pem';
-  // keystoneInit['ssl cert'] = process.env.SSL_CERT || '/etc/letsencrypt/live/test.org/fullchain.pem';
-
-  // This automatic letsencrypt isn't working right now for me
-  // keystoneInit['letsencrypt'] = {
-  //   email: 'email@test.com',
-  //   domains: ['www.test.com', 'test.com'],
-  //   register: true,
-  //   tos: true,
-  // };
+const adapterOptions = {
+  MONGODB_URI : process.env.MONGO_URI || 'mongodb://localhost/keystone5-universal-react',
 }
 
-keystone.init(keystoneInit);
-
-// Load your project's Models
-keystone.import('models');
-
-// Setup common locals for your templates. The following are required for the
-// bundled templates and layouts. Any runtime locals (that should be set uniquely
-// for each request) should be added to ./routes/middleware.js
-keystone.set('locals', {
-  _: require('lodash'),
-  env: keystone.get('env'),
-  utils: keystone.utils,
-  editable: keystone.content.editable,
+const keystone = new Keystone({
+  name    : PROJECT_NAME,
+  adapter : new MongooseAdapter(adapterOptions),
 });
 
-// Load your project's Routes
-keystone.set('routes', require('./routes'));
+setupModels(keystone);
 
-// Configure the navigation bar in Keystone's Admin UI
-keystone.set('nav', {
-  'pages': [
-    'home-pages',
-    'faq-pages',
-    'contact-pages',
-  ],
-  'data' : [
-    'faqs',
-    'media-items',
-    'contact-enquiries',
-  ],
-  'configuration' : [ 'site-configurations' ],
-  'users' : [ 'users' ],
+const authStrategy = keystone.createAuthStrategy({
+  type: PasswordAuthStrategy,
+  list: 'User',
+  config: {
+    identityField : 'email',
+    secretField   : 'password',
+  },
 });
 
-// Start Keystone to connect to your database and initialise the web server
-keystone.start();
+const apps = [
+  new GraphQLApp(),
+  new AdminUIApp({ enableDefaultRoute : true, authStrategy }),
+];
 
-// build cache
-initialCacheLoad()
-.finally(() => {
-  // start cron jobs
-  startCronJobs();
-});
+module.exports = {
+  keystone,
+  apps,
+};

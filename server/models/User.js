@@ -1,20 +1,25 @@
-import keystone from 'keystone';
-const Types = keystone.Field.Types;
+import { Text, Checkbox, Password } from '@keystonejs/fields';
+import { userIsAdminOrOwner, userIsAdmin } from './util/access-control';
 
-const User = new keystone.List('User');
+export const User = keystone => {
+  keystone.createList('User', {
+    fields: {
+      name: { type: Text },
+      email : {
+        type : Text,
+        isUnique : true,
+      },
+      isAdmin : { type : Checkbox },
+      password : {
+        type : Password,
+      },
+    },
+    access: {
+      read   : userIsAdminOrOwner,
+      update : userIsAdminOrOwner,
+      create : userIsAdmin,
+      delete : userIsAdmin,
+    },
+  });
+}
 
-User.add({
-  name: { type: Types.Name, required: true, index: true },
-  email: { type: Types.Email, initial: true, required: true, index: true },
-  password: { type: Types.Password, initial: true, required: true },
-}, 'Permissions', {
-  isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
-});
-
-// Provide access to Keystone
-User.schema.virtual('canAccessKeystone').get(function () {
-  return this.isAdmin;
-});
-
-User.defaultColumns = 'name, email, isAdmin';
-User.register();

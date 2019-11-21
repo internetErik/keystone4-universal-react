@@ -1,8 +1,8 @@
 {
   "errors": [],
   "warnings": [],
-  "version": "4.39.3",
-  "hash": "f62f74b2e491d2a0e082",
+  "version": "4.41.2",
+  "hash": "6a83beb22e0c254961ad",
   "publicPath": "/",
   "outputPath": "/Users/erik/projects/keystone4-universal-react-dev/public",
   "assetsByChunkName": {
@@ -49,6 +49,7 @@
       "chunkNames": [
         "contact-page"
       ],
+      "info": {},
       "emitted": false
     },
     {
@@ -60,6 +61,9 @@
       "chunkNames": [
         "contact-page"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
@@ -71,6 +75,7 @@
       "chunkNames": [
         "faq-page"
       ],
+      "info": {},
       "emitted": false
     },
     {
@@ -82,6 +87,9 @@
       "chunkNames": [
         "faq-page"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
@@ -93,6 +101,7 @@
       "chunkNames": [
         "home-page"
       ],
+      "info": {},
       "emitted": false
     },
     {
@@ -104,55 +113,66 @@
       "chunkNames": [
         "home-page"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
       "name": "login.js",
-      "size": 1166715,
+      "size": 1207744,
       "chunks": [
         "login"
       ],
       "chunkNames": [
         "login"
       ],
+      "info": {},
       "emitted": false
     },
     {
       "name": "login.js.map",
-      "size": 1325098,
+      "size": 1376795,
       "chunks": [
         "login"
       ],
       "chunkNames": [
         "login"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
       "name": "main.js",
-      "size": 1726126,
+      "size": 1774481,
       "chunks": [
         "main"
       ],
       "chunkNames": [
         "main"
       ],
+      "info": {},
       "emitted": false
     },
     {
       "name": "main.js.map",
-      "size": 1799392,
+      "size": 1853950,
       "chunks": [
         "main"
       ],
       "chunkNames": [
         "main"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
       "name": "styles.css",
-      "size": 283170,
+      "size": 283132,
       "chunks": [
         "login",
         "main"
@@ -161,11 +181,12 @@
         "login",
         "main"
       ],
+      "info": {},
       "emitted": false
     },
     {
       "name": "styles.css.map",
-      "size": 87,
+      "size": 442049,
       "chunks": [
         "login",
         "main"
@@ -174,50 +195,61 @@
         "login",
         "main"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
       "name": "vendor.js",
-      "size": 1439426,
+      "size": 1506397,
       "chunks": [
         "vendor"
       ],
       "chunkNames": [
         "vendor"
       ],
+      "info": {},
       "emitted": false
     },
     {
       "name": "vendor.js.map",
-      "size": 1568058,
+      "size": 1638156,
       "chunks": [
         "vendor"
       ],
       "chunkNames": [
         "vendor"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     },
     {
       "name": "vendors~contact-page.js",
-      "size": 28892,
+      "size": 29373,
       "chunks": [
         "vendors~contact-page"
       ],
       "chunkNames": [
         "vendors~contact-page"
       ],
+      "info": {},
       "emitted": false
     },
     {
       "name": "vendors~contact-page.js.map",
-      "size": 24239,
+      "size": 24648,
       "chunks": [
         "vendors~contact-page"
       ],
       "chunkNames": [
         "vendors~contact-page"
       ],
+      "info": {
+        "development": true
+      },
       "emitted": false
     }
   ],
@@ -343,5 +375,48 @@
       "debug": false
     }
   },
-  "children": []
+  "children": [
+    {
+      "errors": [],
+      "warnings": [],
+      "publicPath": "/",
+      "outputPath": "/Users/erik/projects/keystone4-universal-react-dev/public",
+      "assetsByChunkName": {},
+      "assets": [],
+      "filteredAssets": 0,
+      "entrypoints": {
+        "mini-css-extract-plugin": {
+          "chunks": [
+            "mini-css-extract-plugin"
+          ],
+          "assets": [
+            "*"
+          ],
+          "children": {},
+          "childAssets": {}
+        }
+      },
+      "namedChunkGroups": {
+        "mini-css-extract-plugin": {
+          "chunks": [
+            "mini-css-extract-plugin"
+          ],
+          "assets": [
+            "*"
+          ],
+          "children": {},
+          "childAssets": {}
+        }
+      },
+      "logging": {
+        "webpack.buildChunkGraph.visitModules": {
+          "entries": [],
+          "filteredEntries": 2,
+          "debug": false
+        }
+      },
+      "children": [],
+      "name": "mini-css-extract-plugin node_modules/css-loader/dist/cjs.js!node_modules/sass-loader/dist/cjs.js?sourceMap!scss/site.scss"
+    }
+  ]
 }

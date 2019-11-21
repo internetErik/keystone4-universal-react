@@ -6,7 +6,7 @@ import AppLogin from '../../../both/website-login/app-login';
 
 import renderLayout from '../../views/login-layout';
 
-exports = module.exports = (request, response) => {
+export const loginController = (request, response) => {
 
   // handle redirect if we aren't logged in
   if(request.session.loggedIn) {

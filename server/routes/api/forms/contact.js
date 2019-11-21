@@ -2,7 +2,7 @@ import keystone from 'keystone';
 import sendEmail from '../../../util/send-email';
 import contactEmail from '../../../views/email/contact-email';
 
-exports = module.exports = (req, res) => {
+export const contactController = (req, res) => {
   const { enquiry } = req.body;
 
   saveContactEnquiry(enquiry)

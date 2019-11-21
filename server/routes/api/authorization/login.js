@@ -1,6 +1,6 @@
 const PASSWORD = process.env.PASSWORD || 'password';
 
-exports = module.exports = (req, res) => {
+export const loginController = (req, res) => {
   const { password } = req.body;
   if(password === PASSWORD) {
     req.session.loggedIn = true;

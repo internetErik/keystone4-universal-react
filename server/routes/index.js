@@ -1,32 +1,27 @@
-import keystone from 'keystone';
 import redirectData from './redirect-data';
 import { initLocals } from './middleware';
 import { routeAuthFactory } from './util/auth';
 
+import { viewControllers } from './view';
+import { apiControllers } from './api';
+
 const authOn = process.env.SIMPLE_AUTH_ON === 'true';
 const authenticatedRoute = routeAuthFactory(authOn);
 
-const importRoutes = keystone.importer(__dirname);
-
 // Load Routes
 const controllers = {
-  view      : importRoutes('./view'), // view controllers
+  view: viewControllers, // view controllers
   ///
   /// APIs
   ///
-  login     : importRoutes('./api/login'),
-  forms     : importRoutes('./api/forms'),
-  actions   : importRoutes('./api/actions'),
-  // general
-  admin     : importRoutes('./api/admin-commands'),
-  page      : importRoutes('./api/page'),
+  ...apiControllers,
 };
 
 // Bind Routes
-exports = module.exports = app => {
+export const setupRoutes = app => {
 
   // before any route, load in the locals
-  keystone.pre('routes', initLocals);
+  // keystone.pre('routes', initLocals);
 
   // redirects
   Object.keys(redirectData)
@@ -39,25 +34,25 @@ exports = module.exports = app => {
    *****************************************/
 
   if(authOn) {
-    app.post('/api/login',  controllers.login.loginAction);
-    app.all('/api/logout', controllers.login.logoutAction);
+    app.post('/api/login',  controllers.authorizationControllers.loginController);
+    app.all('/api/logout', controllers.authorizationControllers.logoutController);
 
     // login page view route
-    app.get('/login', controllers.view.login)
+    app.get('/login', controllers.view.loginController)
   }
 
-  app.post('/api/contact',     authenticatedRoute(controllers.forms.contact));
-  app.post('/api/site-search', authenticatedRoute(controllers.actions.siteSearch));
+  app.post('/api/contact',     authenticatedRoute(controllers.formControllers.contactController));
+  app.post('/api/site-search', authenticatedRoute(controllers.actionControllers.siteSearchController));
 
   // Page API Routes
-  app.all('/api/page',   authenticatedRoute(controllers.page.pageData)); // home page on main site
-  app.all('/api/page/*', authenticatedRoute(controllers.page.pageData)); // all other pages
+  app.all('/api/page',   authenticatedRoute(controllers.pageControllers.pageDataController)); // home page on main site
+  app.all('/api/page/*', authenticatedRoute(controllers.pageControllers.pageDataController)); // all other pages
 
   ///
   /// View routes
   ///
 
   // main site
-  app.get('*', authenticatedRoute(controllers.view.main, '/login'));
+  app.get('*', authenticatedRoute(controllers.view.mainController, '/login'));
 };
 

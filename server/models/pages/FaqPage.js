@@ -1,17 +1,11 @@
-import keystone from 'keystone';
-const Types = keystone.Field.Types;
+import { Text } from '@keystonejs/fields';
 
-const FaqPage = new keystone.List('FaqPage', {
-  map: { name: 'title' },
-  autokey: { path: 'slug', from: 'title', unique: true },
-  nocreate: !(process.env.NODE_ENV === 'dev' || process.env.CAN_CREATE_PAGES === 'true'),
-  nodelete: true
-});
-
-FaqPage.add({
-  title: { type: String, required: true },
-  meta: { type: String },
-});
-
-FaqPage.defaultColumns = 'title';
-FaqPage.register();
+export const FaqPage = keystone => {
+  keystone.createList('FaqPage', {
+    schemaDoc: '',
+    fields: {
+      title : { type: Text, schemaDoc: '' },
+      meta  : { type: Text, schemaDoc: '' },
+    },
+  });
+}

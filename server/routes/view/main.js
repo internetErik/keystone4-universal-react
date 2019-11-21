@@ -23,15 +23,15 @@ const statsFile = path.resolve(
   '../../../public/loadable-stats.json',
 )
 
-const NODE_ENV = process.env.NODE_ENV;
-const CDN_URL = process.env.ROOT_ASSET_URL;
+const { NODE_ENV } = process.env;
+
 const publicPath = (
-  NODE_ENV === 'staged'     ? `${CDN_URL}assets/staged/`
-: NODE_ENV === 'production' ? `${CDN_URL}assets/`
+  NODE_ENV === 'staged'     ? `${ CDN_URL }assets/staged/`
+: NODE_ENV === 'production' ? `${ CDN_URL }assets/`
 : '/'
 );
 
-exports = module.exports = (request, response) => {
+export const mainController = (request, response) => {
   const url = request.originalUrl || request.url;
   const location = parseUrl(url);
 
@@ -46,7 +46,8 @@ exports = module.exports = (request, response) => {
     const store = createStore(createRootReducer())
 
     // wait for all components to finish async requests
-    loadOnServer({ location, routes, store, data }).then(() => {
+    loadOnServer({ location, routes, store, data })
+    .then(() => {
       const context = {};
       const extractor = new ChunkExtractor({
         statsFile,
@@ -65,14 +66,14 @@ exports = module.exports = (request, response) => {
         </Provider>
       );
 
-      // generate a string that we will render to the page
-      const html = renderToString(jsx);
-
       // handle redirects
       if(context.url) {
         request.header('Location', context.url)
         return response.send(302)
       }
+
+      // generate a string that we will render to the page
+      const html = renderToString(jsx);
 
       // get values for head: title, meta tags
       const head = Helmet.renderStatic();
