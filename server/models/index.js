@@ -13,11 +13,11 @@ import { FaqPage }     from './pages/FaqPage';
 import { ContactPage } from './pages/ContactPage';
 
 export const setupModels = keystone => {
-  Faq(keystone);
+  User(keystone);
   SiteConfiguration(keystone);
   MediaItem(keystone);
-  User(keystone);
   ContactEnquiry(keystone);
+  Faq(keystone);
   HomePage(keystone);
   FaqPage(keystone);
   ContactPage(keystone);

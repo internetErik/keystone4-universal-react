@@ -1,4 +1,5 @@
-import keystone from 'keystone';
+import { Keystone } from '@keystonejs/keystone';
+
 import Fuse from 'fuse.js';
 
 import { siteConfigurationCache } from './site-configuration';

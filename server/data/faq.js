@@ -1,4 +1,4 @@
-import keystone from 'keystone';
+import { Keystone } from '@keystonejs/keystone';
 
 export const getFaqsData = (/* ref */data) => new Promise((resolve, reject) => {
   keystone.list('Faq')

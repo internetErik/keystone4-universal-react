@@ -5,8 +5,8 @@ import { routeAuthFactory } from './util/auth';
 import { viewControllers } from './view';
 import { apiControllers } from './api';
 
-const authOn = process.env.SIMPLE_AUTH_ON === 'true';
-const authenticatedRoute = routeAuthFactory(authOn);
+const { SIMPLE_AUTH_ON } = process.env;
+const authenticatedRoute = routeAuthFactory(!!SIMPLE_AUTH_ON);
 
 // Load Routes
 const controllers = {
@@ -25,7 +25,7 @@ export const setupRoutes = app => {
 
   // redirects
   Object.keys(redirectData)
-    .forEach((key) => app.get(`/${key}`, controllers.view.redirect));
+  .forEach(key => app.get(`/${ key }`, controllers.view.redirect));
 
   /*****************************************
    *****************************************
@@ -33,20 +33,20 @@ export const setupRoutes = app => {
    *****************************************
    *****************************************/
 
-  if(authOn) {
+  if(!!SIMPLE_AUTH_ON) {
     app.post('/api/login',  controllers.authorizationControllers.loginController);
     app.all('/api/logout', controllers.authorizationControllers.logoutController);
 
     // login page view route
-    app.get('/login', controllers.view.loginController)
+    app.get('/login', controllers.view.loginController);
   }
 
-  app.post('/api/contact',     authenticatedRoute(controllers.formControllers.contactController));
-  app.post('/api/site-search', authenticatedRoute(controllers.actionControllers.siteSearchController));
+  // app.post('/api/contact',     authenticatedRoute(controllers.formControllers.contactController));
+  // app.post('/api/site-search', authenticatedRoute(controllers.actionControllers.siteSearchController));
 
   // Page API Routes
-  app.all('/api/page',   authenticatedRoute(controllers.pageControllers.pageDataController)); // home page on main site
-  app.all('/api/page/*', authenticatedRoute(controllers.pageControllers.pageDataController)); // all other pages
+  // app.all('/api/page',   authenticatedRoute(controllers.pageControllers.pageDataController)); // home page on main site
+  // app.all('/api/page/*', authenticatedRoute(controllers.pageControllers.pageDataController)); // all other pages
 
   ///
   /// View routes

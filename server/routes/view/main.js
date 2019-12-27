@@ -23,7 +23,7 @@ const statsFile = path.resolve(
   '../../../public/loadable-stats.json',
 )
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV, ADMIN_PATH } = process.env;
 
 const publicPath = (
   NODE_ENV === 'staged'     ? `${ CDN_URL }assets/staged/`
@@ -31,16 +31,20 @@ const publicPath = (
 : '/'
 );
 
-export const mainController = (request, response) => {
-  const url = request.originalUrl || request.url;
+export const mainController = (req, res, next) => {
+
+  // don't block the keystone admin
+  if(req.url.indexOf(ADMIN_PATH) === 0) return next();
+
+  const url = req.originalUrl || req.url;
   const location = parseUrl(url);
 
   // load data out of keystone's interface to mongo
-  let [pagePath, ...args] = request.path.split('/').splice(1);
-  populateData(pagePath, args, request, response).then(data => {
+  let [pagePath, ...args] = req.path.split('/').splice(1);
+  populateData(pagePath, args, req, res).then(data => {
     // get the site config out of locals, and initialize
     // the appReducer's initial state
-    setAppInitialState(response.locals);
+    setAppInitialState(res.locals);
 
     // initialize a store for rendering app
     const store = createStore(createRootReducer())
@@ -68,8 +72,8 @@ export const mainController = (request, response) => {
 
       // handle redirects
       if(context.url) {
-        request.header('Location', context.url)
-        return response.send(302)
+        req.header('Location', context.url)
+        return res.send(302)
       }
 
       // generate a string that we will render to the page
@@ -79,16 +83,16 @@ export const mainController = (request, response) => {
       const head = Helmet.renderStatic();
 
       // render the page, and send it to the client
-      response.send(renderLayout(head, html, 'main', store.getState(), extractor, !!(request.user && request.user.isAdmin)))
+      res.send(renderLayout(head, html, 'main', store.getState(), extractor, !!(req.user && req.user.isAdmin)))
 
     })
     .catch(err => {
       console.error(err);
-      response.status(500).end();
+      res.status(500).end();
     });
   })
   .catch(err => {
     console.error(err);
-    response.status(500).end();
+    res.status(500).end();
   });
 };

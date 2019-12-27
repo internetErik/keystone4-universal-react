@@ -1,5 +1,3 @@
-import _ from 'underscore';
-import keystone from 'keystone';
 import { siteConfigurationCache } from '../cache/site-configuration';
 
 /**

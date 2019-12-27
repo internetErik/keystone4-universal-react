@@ -6,11 +6,15 @@ import AppLogin from '../../../both/website-login/app-login';
 
 import renderLayout from '../../views/login-layout';
 
-export const loginController = (request, response) => {
+const { ADMIN_PATH } = process.env;
+
+export const loginController = (req, res, next) => {
+  // don't block the keystone admin
+  if(req.url.indexOf(ADMIN_PATH) === 0) return next();
 
   // handle redirect if we aren't logged in
-  if(request.session.loggedIn) {
-    response.redirect(302, '/');
+  if(req.session.loggedIn) {
+    res.redirect(302, '/');
     return;
   }
 
@@ -21,5 +25,5 @@ export const loginController = (request, response) => {
   const head = Helmet.renderStatic();
 
   // render the page, and send it to the client
-  response.send(renderLayout(head, html, 'login', {}, !!(request.user && request.user.isAdmin)))
+  res.send(renderLayout(head, html, 'login', {}, !!(req.user && req.user.isAdmin)))
 };

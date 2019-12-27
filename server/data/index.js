@@ -1,7 +1,7 @@
 // page data
-import { getPageData } from './page-data';
+// import { getPageData } from './page-data';
 
-import { getFaqsData } from './faq';
+// import { getFaqsData } from './faq';
 
 // cache
 import { siteConfigurationCache } from '../cache/site-configuration';
@@ -46,19 +46,19 @@ const handleMainPages = (/*ref*/data, pagePath, args, req, res, isSSR) => {
   // ********************
   // these are all routes from the react-router configuration!
   // ********************
-  switch(pagePath) {
-    case 'home-page':
-      promises.push(getPageData(data, 'HomePage'));
-      break;
-    case 'faqs':
-      promises.push(getPageData(data, 'FaqPage'), getFaqsData(data));
-      break;
-    case 'contact':
-      promises.push(getPageData(data, 'ContactPage'));
-      break;
-    default:
-      break;
-  }
+  // switch(pagePath) {
+  //   case 'home-page':
+  //     promises.push(getPageData(data, 'HomePage'));
+  //     break;
+  //   case 'faqs':
+  //     promises.push(getPageData(data, 'FaqPage'), getFaqsData(data));
+  //     break;
+  //   case 'contact':
+  //     promises.push(getPageData(data, 'ContactPage'));
+  //     break;
+  //   default:
+  //     break;
+  // }
 
   return promises;
 }

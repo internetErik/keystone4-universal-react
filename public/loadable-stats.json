@@ -2,7 +2,7 @@
   "errors": [],
   "warnings": [],
   "version": "4.41.2",
-  "hash": "6a83beb22e0c254961ad",
+  "hash": "ddf19254ef1bac494f4f",
   "publicPath": "/",
   "outputPath": "/Users/erik/projects/keystone4-universal-react-dev/public",
   "assetsByChunkName": {
@@ -120,7 +120,7 @@
     },
     {
       "name": "login.js",
-      "size": 1207744,
+      "size": 1208064,
       "chunks": [
         "login"
       ],
@@ -132,7 +132,7 @@
     },
     {
       "name": "login.js.map",
-      "size": 1376795,
+      "size": 1377294,
       "chunks": [
         "login"
       ],
@@ -146,7 +146,7 @@
     },
     {
       "name": "main.js",
-      "size": 1774481,
+      "size": 1779481,
       "chunks": [
         "main"
       ],
@@ -158,7 +158,7 @@
     },
     {
       "name": "main.js.map",
-      "size": 1853950,
+      "size": 1858304,
       "chunks": [
         "main"
       ],
@@ -202,7 +202,7 @@
     },
     {
       "name": "vendor.js",
-      "size": 1506397,
+      "size": 1506338,
       "chunks": [
         "vendor"
       ],
@@ -214,7 +214,7 @@
     },
     {
       "name": "vendor.js.map",
-      "size": 1638156,
+      "size": 1638077,
       "chunks": [
         "vendor"
       ],

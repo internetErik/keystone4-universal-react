@@ -6,9 +6,9 @@
  */
 export const routeAuthFactory = authenticationOn => (
   authenticationOn
-  ? (controller, redirectPath) => (req, res) => {
+  ? (controller, redirectPath) => (req, res, next) => {
       if(req.session.loggedIn)
-        controller(req, res);
+        controller(req, res, next);
       else {
         if(redirectPath)
           res.redirect(302, redirectPath);
@@ -17,5 +17,5 @@ export const routeAuthFactory = authenticationOn => (
         return;
       }
     }
-  : controller => (req, res) => controller(req, res)
+  : controller => (req, res, next) => controller(req, res, next)
 )

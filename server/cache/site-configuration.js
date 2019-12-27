@@ -1,4 +1,4 @@
-import keystone from 'keystone';
+import { Keystone } from '@keystonejs/keystone';
 
 export const siteConfigurationCache = {
   lastLoaded: new Date(),

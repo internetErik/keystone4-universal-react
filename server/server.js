@@ -1,14 +1,22 @@
 import express from 'express';
-import { keystone, apps } from './index.js';
+import expressSession from 'express-session';
+import bodyParser from 'body-parser';
 
+import { keystone, apps, preparations } from './index.js';
 import { setupRoutes } from './routes';
 
-keystone
-.prepare({ apps, dev: process.env.NODE_ENV === 'dev' })
-.then(async ({ middlewares }) => {
+const session = {
+  secret : 'keyboard cat',
+  cookie : {}
+}
+
+Promise.all(preparations)
+.then(async middlewares => {
   await keystone.connect();
 
   const app = express();
+
+  app.use(expressSession(session));
 
   setupRoutes(app);
 

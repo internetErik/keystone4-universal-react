@@ -1,4 +1,5 @@
-import keystone from 'keystone';
+import { Keystone } from '@keystonejs/keystone';
+
 import sendEmail from '../../../util/send-email';
 import contactEmail from '../../../views/email/contact-email';
 
